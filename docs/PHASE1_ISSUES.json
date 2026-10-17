@@ -1,0 +1,128 @@
+[
+  {
+    "number": 5,
+    "title": "App structure and navigation",
+    "priority": "P0",
+    "acceptance": "Home is first launch; phone and tablet adapt; Idea Lab is absent from navigation.",
+    "dependencies": "None",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 6,
+    "title": "Home screen",
+    "priority": "P0",
+    "acceptance": "Watch and My Stuff are prominent at top; coral/orange/blue styling; branded L at bottom center.",
+    "dependencies": "App structure and navigation",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 7,
+    "title": "Custom L camera button",
+    "priority": "P0",
+    "acceptance": "Accessible branded L immediately starts camera flow with permission/error handling.",
+    "dependencies": "App structure and navigation",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 8,
+    "title": "Camera and video recording",
+    "priority": "P0",
+    "acceptance": "Photos and video, both lenses, point-of-use camera/mic access, preview/cancel/save/retake. Device validation recorded honestly.",
+    "dependencies": "Custom L camera button; Local storage and future backend architecture",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 9,
+    "title": "Image/video import",
+    "priority": "P0",
+    "acceptance": "System selected-item picker imports pictures and videos; cancellation/error states; preview before local save.",
+    "dependencies": "Local storage and future backend architecture",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 10,
+    "title": "My Stuff gallery",
+    "priority": "P0",
+    "acceptance": "Saved pictures/videos open, play, survive restart and delete with confirmation; private by default.",
+    "dependencies": "Local storage and future backend architecture",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 11,
+    "title": "Profile picture support",
+    "priority": "P1",
+    "acceptance": "Choose or take photo, crop/replace/remove; private local storage.",
+    "dependencies": "Image/video import; Child privacy and security",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 12,
+    "title": "Watch feed with separate Pictures and Videos",
+    "priority": "P1",
+    "acceptance": "Bundled original safe samples; picture grid and playable video feed; search titles/media/creator names. No network feed.",
+    "dependencies": "App structure and navigation",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 13,
+    "title": "Linked Creator profiles and search",
+    "priority": "P1",
+    "acceptance": "Only fictional bundled creators searchable; link/unlink persists; linked feed filters to linked profiles. No child discovery.",
+    "dependencies": "Watch feed with separate Pictures and Videos",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 14,
+    "title": "Parent Center prototype",
+    "priority": "P1",
+    "acceptance": "Device-owner auth fails closed, locks on leaving/background, allowed/restricted actions shown; no claim of verified parental consent.",
+    "dependencies": "Child privacy and security",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 15,
+    "title": "Child privacy and security",
+    "priority": "P0",
+    "acceptance": "No media upload/telemetry; cloud/public posting/communication hard-disabled; backup exclusion; future consent/revocation/moderation documented.",
+    "dependencies": "None",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 16,
+    "title": "Local storage and future backend architecture",
+    "priority": "P0",
+    "acceptance": "Atomic local media/index, protected backup-excluded files, errors surfaced; future ASP.NET/SQL/private Blob contracts and deletion documented; no Azure resources.",
+    "dependencies": "Child privacy and security",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 17,
+    "title": "Media editing and filters",
+    "priority": "P2",
+    "acceptance": "Reuse native trimming and photo crop; document remaining effects instead of risking P0.",
+    "dependencies": "Camera and video recording",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  },
+  {
+    "number": 18,
+    "title": "Tests and build validation",
+    "priority": "P0",
+    "acceptance": "Storage/policy/search tests and iPhone build results; run instructions; device-only limitations and screenshots where supported.",
+    "dependencies": "P0 implementation",
+    "tracking_issue": 2,
+    "state": "CLOSED as superseded; acceptance remains open in #2"
+  }
+]

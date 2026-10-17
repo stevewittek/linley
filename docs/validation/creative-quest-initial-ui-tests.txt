@@ -1,0 +1,247 @@
+Test Suite 'All tests' started at 2026-10-17 14:49:47.645.
+Test Suite 'LinleyTests.xctest' started at 2026-10-17 14:49:47.646.
+Test Suite 'CreativeQuestTests' started at 2026-10-17 14:49:47.646.
+Test Case '-[LinleyTests.CreativeQuestTests testAllEightStickersAndReplayRemainBounded]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testAllEightStickersAndReplayRemainBounded]' passed (0.046 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testCorruptProgressFailsClosedAndGameOnlyResetRecovers]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testCorruptProgressFailsClosedAndGameOnlyResetRecovers]' passed (0.003 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testEverySupplyReachableAndPathsAreAdjacent]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testEverySupplyReachableAndPathsAreAdjacent]' passed (0.001 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testHeroAndPartialAdventurePersistAndRestartKeepsRewards]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testHeroAndPartialAdventurePersistAndRestartKeepsRewards]' passed (0.008 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testWallsBoundsAndTeleportCannotMoveHero]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testWallsBoundsAndTeleportCannotMoveHero]' passed (0.001 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testWinAwardsOneStickerAndPersistsAcrossReload]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testWinAwardsOneStickerAndPersistsAcrossReload]' passed (0.006 seconds).
+Test Suite 'CreativeQuestTests' passed at 2026-10-17 14:49:47.713.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.065 (0.067) seconds
+Test Suite 'LinleyTests' started at 2026-10-17 14:49:47.713.
+Test Case '-[LinleyTests.LinleyTests testBrandCopyIsReadyForPrototype]' started.
+Test Case '-[LinleyTests.LinleyTests testBrandCopyIsReadyForPrototype]' passed (0.001 seconds).
+Test Case '-[LinleyTests.LinleyTests testSuggestionShareTextRequiresDadReview]' started.
+Test Case '-[LinleyTests.LinleyTests testSuggestionShareTextRequiresDadReview]' passed (0.001 seconds).
+Test Suite 'LinleyTests' passed at 2026-10-17 14:49:47.715.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.001 (0.002) seconds
+Test Suite 'PrivateLibraryTests' started at 2026-10-17 14:49:47.715.
+Test Case '-[LinleyTests.PrivateLibraryTests testCorruptManifestFailsClosedAndIsNotOverwritten]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testCorruptManifestFailsClosedAndIsNotOverwritten]' passed (0.006 seconds).
+Test Case '-[LinleyTests.PrivateLibraryTests testFailedSaveDoesNotCreateManifestEntry]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testFailedSaveDoesNotCreateManifestEntry]' passed (0.002 seconds).
+Test Case '-[LinleyTests.PrivateLibraryTests testNoConnectedPermissionsAndOnlyBundledSearchResults]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testNoConnectedPermissionsAndOnlyBundledSearchResults]' passed (0.001 seconds).
+Test Case '-[LinleyTests.PrivateLibraryTests testPictureAndVideoPersistAcrossNewStoreAndDelete]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testPictureAndVideoPersistAcrossNewStoreAndDelete]' passed (0.020 seconds).
+Test Case '-[LinleyTests.PrivateLibraryTests testPrivateDirectoryExcludedFromBackupAndPathValidation]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testPrivateDirectoryExcludedFromBackupAndPathValidation]' passed (0.001 seconds).
+Test Case '-[LinleyTests.PrivateLibraryTests testProfileReplacementRemovalAndLinkedCreatorPersistence]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testProfileReplacementRemovalAndLinkedCreatorPersistence]' passed (0.012 seconds).
+Test Suite 'PrivateLibraryTests' passed at 2026-10-17 14:49:47.758.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.042 (0.043) seconds
+Test Suite 'LinleyTests.xctest' passed at 2026-10-17 14:49:47.758.
+	 Executed 14 tests, with 0 failures (0 unexpected) in 0.108 (0.112) seconds
+Test Suite 'All tests' passed at 2026-10-17 14:49:47.758.
+	 Executed 14 tests, with 0 failures (0 unexpected) in 0.108 (0.113) seconds
+2026-10-17 14:49:49.747714-0400 LinleyUITests-Runner[2317:108858] [Default] Running tests...
+2026-10-17 14:49:49.761679-0400 LinleyUITests-Runner[2317:108858] [UIKit App Config] Update the Info.plist: Launch screens will soon be required.
+    t =      nans Interface orientation changed to Landscape Left
+Test Suite 'All tests' started at 2026-10-17 14:50:25.354.
+Test Suite 'LinleyUITests.xctest' started at 2026-10-17 14:50:25.354.
+Test Suite 'CreativeQuestUITests' started at 2026-10-17 14:50:25.359.
+Test Case '-[LinleyUITests.CreativeQuestUITests testPlayExploreCustomizeAndStickerBoard]' started.
+    t =     0.00s Start Test at 2026-10-17 14:50:25.360
+    t =     0.09s Set Up
+    t =     0.10s Open com.netherwooddatapartners.linley
+2026-10-17 14:50:25.856 xcodebuild[53363:816733] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-17 14:50:25.856 xcodebuild[53363:816733] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     0.11s     Launch com.netherwooddatapartners.linley
+    t =     0.97s         Setting up automation session
+    t =     1.30s         Wait for com.netherwooddatapartners.linley to idle
+    t =     2.60s Waiting 10.0s for "openGames" Button to exist
+    t =     3.60s     Checking `Expect predicate `existsNoRetry == 1` for object "openGames" Button`
+    t =     3.60s         Checking existence of `"openGames" Button`
+    t =     3.74s Tap "openGames" Button
+    t =     3.74s     Wait for com.netherwooddatapartners.linley to idle
+    t =     3.76s     Find the "openGames" Button
+    t =     3.79s     Check for interrupting elements affecting "openGames" Button
+    t =     3.82s     Synthesize event
+    t =     4.26s     Wait for com.netherwooddatapartners.linley to idle
+    t =     5.09s Waiting 5.0s for "playCreativeQuest" Button to exist
+    t =     6.10s     Checking `Expect predicate `existsNoRetry == 1` for object "playCreativeQuest" Button`
+    t =     6.11s         Checking existence of `"playCreativeQuest" Button`
+    t =     6.19s Tap "playCreativeQuest" Button
+    t =     6.19s     Wait for com.netherwooddatapartners.linley to idle
+    t =     6.20s     Find the "playCreativeQuest" Button
+    t =     6.25s     Check for interrupting elements affecting "playCreativeQuest" Button
+    t =     6.29s     Synthesize event
+<unknown>:0: warning: -[LinleyUITests.CreativeQuestUITests testPlayExploreCustomizeAndStickerBoard] : Invalid frame dimension (negative or non-finite).
+    t =     6.59s     Wait for com.netherwooddatapartners.linley to idle
+    t =     7.06s Waiting 5.0s for "My Hero" Button to exist
+    t =     8.10s     Checking `Expect predicate `existsNoRetry == 1` for object "My Hero" Button`
+    t =     8.10s         Checking existence of `"My Hero" Button`
+    t =     8.20s Find the Target Application 'com.netherwooddatapartners.linley'
+    t =     8.46s Added attachment named 'Creative Quest — device verified initial screen'
+    t =     8.46s Checking existence of `Button (First Match)`
+    t =     8.50s Find the Button (First Match)
+    t =     8.53s Tap "paintbrush.pointed.fill" Button
+    t =     8.53s     Wait for com.netherwooddatapartners.linley to idle
+    t =     8.53s     Find the "paintbrush.pointed.fill" Button
+    t =     8.56s     Check for interrupting elements affecting "paintbrush.pointed.fill" Button
+    t =     8.59s     Synthesize event
+    t =     8.88s     Wait for com.netherwooddatapartners.linley to idle
+    t =     8.90s Waiting 5.0s for "Next adventure" Button to exist
+    t =     9.93s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =     9.93s         Checking existence of `"Next adventure" Button`
+    t =     9.99s         Capturing element debug description
+    t =    10.90s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    10.91s         Checking existence of `"Next adventure" Button`
+    t =    10.99s         Capturing element debug description
+    t =    11.92s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    11.92s         Checking existence of `"Next adventure" Button`
+    t =    11.99s         Capturing element debug description
+    t =    12.90s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    12.91s         Checking existence of `"Next adventure" Button`
+    t =    12.99s         Capturing element debug description
+    t =    13.90s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    13.91s         Checking existence of `"Next adventure" Button`
+    t =    13.99s         Capturing element debug description
+    t =    13.99s     Checking existence of `"Next adventure" Button`
+    t =    14.04s Collecting debug information to assist test failure triage
+    t =    14.04s     Requesting snapshot of accessibility hierarchy for app with pid 2343
+    t =    14.17s Checking existence of `Button (First Match)`
+    t =    14.19s Find the Button (First Match)
+    t =    14.21s Tap "paintpalette.fill" Button
+    t =    14.21s     Wait for com.netherwooddatapartners.linley to idle
+    t =    14.22s     Find the "paintpalette.fill" Button
+    t =    14.24s     Check for interrupting elements affecting "paintpalette.fill" Button
+    t =    14.27s     Synthesize event
+    t =    14.56s     Wait for com.netherwooddatapartners.linley to idle
+    t =    14.58s Waiting 5.0s for "Next adventure" Button to exist
+    t =    15.61s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    15.61s         Checking existence of `"Next adventure" Button`
+    t =    15.70s         Capturing element debug description
+    t =    16.63s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    16.63s         Checking existence of `"Next adventure" Button`
+    t =    16.71s         Capturing element debug description
+    t =    17.65s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    17.65s         Checking existence of `"Next adventure" Button`
+    t =    17.73s         Capturing element debug description
+    t =    18.65s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    18.65s         Checking existence of `"Next adventure" Button`
+    t =    18.73s         Capturing element debug description
+    t =    19.58s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    19.58s         Checking existence of `"Next adventure" Button`
+    t =    19.66s         Capturing element debug description
+    t =    19.66s     Checking existence of `"Next adventure" Button`
+    t =    19.70s Collecting debug information to assist test failure triage
+    t =    19.71s     Requesting snapshot of accessibility hierarchy for app with pid 2343
+    t =    19.83s Checking existence of `Button (First Match)`
+    t =    19.87s Checking existence of `Button (First Match)`
+    t =    19.89s Find the Button (First Match)
+    t =    19.92s Tap "scissors" Button
+    t =    19.92s     Wait for com.netherwooddatapartners.linley to idle
+    t =    19.93s     Find the "scissors" Button
+    t =    20.07s     Check for interrupting elements affecting "scissors" Button
+    t =    20.14s     Synthesize event
+    t =    20.47s     Wait for com.netherwooddatapartners.linley to idle
+    t =    20.49s Waiting 5.0s for "Next adventure" Button to exist
+    t =    21.52s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    21.52s         Checking existence of `"Next adventure" Button`
+    t =    21.58s         Capturing element debug description
+    t =    22.49s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    22.49s         Checking existence of `"Next adventure" Button`
+    t =    22.57s         Capturing element debug description
+    t =    23.50s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    23.50s         Checking existence of `"Next adventure" Button`
+    t =    23.58s         Capturing element debug description
+    t =    24.49s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    24.49s         Checking existence of `"Next adventure" Button`
+    t =    24.57s         Capturing element debug description
+    t =    25.49s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    25.49s         Checking existence of `"Next adventure" Button`
+    t =    25.57s         Capturing element debug description
+    t =    25.58s     Checking existence of `"Next adventure" Button`
+    t =    25.62s Collecting debug information to assist test failure triage
+    t =    25.62s     Requesting snapshot of accessibility hierarchy for app with pid 2343
+    t =    25.74s Checking existence of `Button (First Match)`
+    t =    25.77s Find the Button (First Match)
+    t =    25.80s Tap "star.fill" Button
+    t =    25.80s     Wait for com.netherwooddatapartners.linley to idle
+    t =    25.81s     Find the "star.fill" Button
+    t =    25.84s     Check for interrupting elements affecting "star.fill" Button
+    t =    25.87s     Synthesize event
+    t =    26.18s     Wait for com.netherwooddatapartners.linley to idle
+    t =    26.19s Waiting 5.0s for "Next adventure" Button to exist
+    t =    27.19s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    27.20s         Checking existence of `"Next adventure" Button`
+    t =    27.28s Waiting 8.0s for "Next adventure" Button to exist
+    t =    28.29s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    28.29s         Checking existence of `"Next adventure" Button`
+    t =    28.37s Find the Target Application 'com.netherwooddatapartners.linley'
+    t =    28.62s Added attachment named 'Creative Quest — device verified completed adventure'
+    t =    28.62s Tap "Sticker Board" Button
+    t =    28.62s     Wait for com.netherwooddatapartners.linley to idle
+    t =    28.62s     Find the "Sticker Board" Button
+    t =    28.69s     Check for interrupting elements affecting "Sticker Board" Button
+    t =    28.72s     Synthesize event
+    t =    29.02s     Wait for com.netherwooddatapartners.linley to idle
+    t =    29.46s Waiting 5.0s for "1 of 8 stickers collected" StaticText to exist
+    t =    30.46s     Checking `Expect predicate `existsNoRetry == 1` for object "1 of 8 stickers collected" StaticText`
+    t =    30.46s         Checking existence of `"1 of 8 stickers collected" StaticText`
+    t =    30.57s Find the Target Application 'com.netherwooddatapartners.linley'
+    t =    30.83s Added attachment named 'Creative Quest — device verified sticker board'
+    t =    30.83s Tap "Done" Button
+    t =    30.83s     Wait for com.netherwooddatapartners.linley to idle
+    t =    30.84s     Find the "Done" Button
+    t =    30.93s     Check for interrupting elements affecting "Done" Button
+    t =    30.97s     Synthesize event
+    t =    31.27s     Wait for com.netherwooddatapartners.linley to idle
+    t =    31.95s Tap "My Hero" Button
+    t =    31.95s     Wait for com.netherwooddatapartners.linley to idle
+    t =    31.97s     Find the "My Hero" Button
+    t =    32.05s     Check for interrupting elements affecting "My Hero" Button
+    t =    32.11s     Synthesize event
+    t =    32.41s     Wait for com.netherwooddatapartners.linley to idle
+    t =    33.07s Waiting 5.0s for "Long hair" Switch to exist
+    t =    34.08s     Checking `Expect predicate `existsNoRetry == 1` for object "Long hair" Switch`
+    t =    34.08s         Checking existence of `"Long hair" Switch`
+    t =    34.22s Tap "Long hair" Switch
+    t =    34.22s     Wait for com.netherwooddatapartners.linley to idle
+    t =    34.24s     Find the "Long hair" Switch
+    t =    34.30s     Check for interrupting elements affecting "Long hair" Switch
+    t =    34.37s     Synthesize event
+    t =    34.67s     Wait for com.netherwooddatapartners.linley to idle
+    t =    34.69s Tap "Done" Button
+    t =    34.69s     Wait for com.netherwooddatapartners.linley to idle
+    t =    34.70s     Find the "Done" Button
+    t =    34.82s     Check for interrupting elements affecting "Done" Button
+    t =    34.89s     Synthesize event
+    t =    35.20s     Wait for com.netherwooddatapartners.linley to idle
+    t =    35.88s Tap "Next adventure" Button
+    t =    35.88s     Wait for com.netherwooddatapartners.linley to idle
+    t =    35.90s     Find the "Next adventure" Button
+    t =    35.99s     Check for interrupting elements affecting "Next adventure" Button
+    t =    36.04s     Synthesize event
+    t =    36.35s     Wait for com.netherwooddatapartners.linley to idle
+    t =    36.37s Waiting 5.0s for "Adventure 2" StaticText to exist
+    t =    37.38s     Checking `Expect predicate `existsNoRetry == 1` for object "Adventure 2" StaticText`
+    t =    37.38s         Checking existence of `"Adventure 2" StaticText`
+    t =    37.48s Tear Down
+Test Case '-[LinleyUITests.CreativeQuestUITests testPlayExploreCustomizeAndStickerBoard]' passed (37.683 seconds).
+Test Suite 'CreativeQuestUITests' passed at 2026-10-17 14:51:03.043.
+	 Executed 1 test, with 0 failures (0 unexpected) in 37.683 (37.684) seconds
+Test Suite 'LinleyUITests.xctest' passed at 2026-10-17 14:51:03.043.
+	 Executed 1 test, with 0 failures (0 unexpected) in 37.683 (37.689) seconds
+Test Suite 'All tests' passed at 2026-10-17 14:51:03.044.
+	 Executed 1 test, with 0 failures (0 unexpected) in 37.683 (37.690) seconds
+2026-10-17 14:51:03.426 xcodebuild[53363:818074]  IDETestOperationsObserverDebug: Failure collecting diagnostics from devices: Process exited with error 72:
+
+2026-10-17 14:51:03.478 xcodebuild[53363:816733] [MT] IDETestOperationsObserverDebug: 78.785 elapsed -- Testing started completed.
+2026-10-17 14:51:03.478 xcodebuild[53363:816733] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-17 14:51:03.478 xcodebuild[53363:816733] [MT] IDETestOperationsObserverDebug: 78.785 sec, +78.785 sec -- end
+
+Test session results, code coverage, and logs:
+	/tmp/LinleyQuestIPadUITests
+
+** TEST SUCCEEDED **
+
+Testing started

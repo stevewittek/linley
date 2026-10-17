@@ -1,0 +1,6 @@
+PASS: save, copied bytes, reload and deletion
+PASS: failed copy does not change manifest
+PASS: backup exclusion and path validation
+PASS: profile replacement/removal and persisted sample links
+PASS: connected features denied, media search and linked-only filtering
+PASS: corrupt index preserved and writes denied

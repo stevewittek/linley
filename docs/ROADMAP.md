@@ -1,21 +1,12 @@
-# Linley product roadmap
+# Roadmap
 
-This roadmap intentionally tracks one meaningful outcome per milestone rather than small engineering tasks.
+## 0.4 — Private creation studio and visual review (#2)
+Home, branded camera, local pictures/video/import/gallery, fictional Watch samples and links, local profile photos, parent boundary and deny-by-default policy. Source is implemented; compile/core checks and device acceptance are distinct. See VERIFICATION.md and #2 for remaining review gates.
 
-## 0.3 — Creator-led local iPad prototype
+## 0.5 — Parent-approved circles (#3)
+Design only after separate approval: adult identity and consent, private relationships, moderation, revocation and deletion. No messaging, stranger discovery, public profiles or open comments in Phase 1.
 
-Deliver the Idea Lab, local video creator, Dad-review Builder, local profile, and clear safety promises as a working iPad build. **Completed for testing.**
+## 1.0 — Release readiness (#4)
+Privacy/legal review, verifiable parental consent before child-data collection, accessibility and device coverage, quota/error recovery, support, signing and distribution review. No TestFlight/App Store or Azure provisioning in this sprint.
 
-## 0.4 — Local creations and parent-controlled sharing
-
-Give kids a simple local creations library and design a parent gate for deliberately exporting a creation to an approved destination. Nothing becomes public by default.
-
-## 0.5 — Parent-approved circles and safe collaboration
-
-Prototype invite-only groups controlled by adults, with preset reactions or other constrained collaboration. Validate identity, privacy, moderation, storage, and cost before selecting any backend.
-
-## 1.0 — Distribution, privacy, and release readiness
-
-Prepare Linley for wider testing or release: parent controls, privacy disclosures, moderation operations, accessibility, device testing, TestFlight/App Store requirements, and a documented support plan.
-
-Every milestone begins with Lorelei's feedback and requires Dad's approval before scope, code, deployment, or sharing changes.
+Keep broad milestones, update evidence after meaningful batches, and obtain Dad/Lorelei visual and device acceptance before closing #2 or merging.

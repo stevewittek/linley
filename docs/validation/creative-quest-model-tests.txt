@@ -1,0 +1,54 @@
+Test Suite 'All tests' started at 2026-10-17 14:56:27.937.
+Test Suite 'LinleyTests.xctest' started at 2026-10-17 14:56:27.937.
+Test Suite 'CreativeQuestTests' started at 2026-10-17 14:56:27.937.
+Test Case '-[LinleyTests.CreativeQuestTests testAllEightStickersAndReplayRemainBounded]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testAllEightStickersAndReplayRemainBounded]' passed (0.044 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testCorruptProgressFailsClosedAndGameOnlyResetRecovers]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testCorruptProgressFailsClosedAndGameOnlyResetRecovers]' passed (0.003 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testEarnSpendDuplicateAndInsufficientFundsAcrossReload]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testEarnSpendDuplicateAndInsufficientFundsAcrossReload]' passed (0.010 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testEverySupplyReachableAndPathsAreAdjacent]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testEverySupplyReachableAndPathsAreAdjacent]' passed (0.001 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testHeroAndPartialAdventurePersistAndRestartKeepsRewards]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testHeroAndPartialAdventurePersistAndRestartKeepsRewards]' passed (0.007 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testMalformedEconomyFailsClosedAndOverflowCannotAward]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testMalformedEconomyFailsClosedAndOverflowCannotAward]' passed (0.006 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testOldCompletedProgressMigratesWithoutDuplicateReward]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testOldCompletedProgressMigratesWithoutDuplicateReward]' passed (0.010 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testWallsBoundsAndTeleportCannotMoveHero]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testWallsBoundsAndTeleportCannotMoveHero]' passed (0.001 seconds).
+Test Case '-[LinleyTests.CreativeQuestTests testWinAwardsOneStickerAndPersistsAcrossReload]' started.
+Test Case '-[LinleyTests.CreativeQuestTests testWinAwardsOneStickerAndPersistsAcrossReload]' passed (0.006 seconds).
+Test Suite 'CreativeQuestTests' passed at 2026-10-17 14:56:28.028.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.088 (0.091) seconds
+Test Suite 'LinleyTests' started at 2026-10-17 14:56:28.028.
+Test Case '-[LinleyTests.LinleyTests testBrandCopyIsReadyForPrototype]' started.
+Test Case '-[LinleyTests.LinleyTests testBrandCopyIsReadyForPrototype]' passed (0.001 seconds).
+Test Case '-[LinleyTests.LinleyTests testSuggestionShareTextRequiresDadReview]' started.
+Test Case '-[LinleyTests.LinleyTests testSuggestionShareTextRequiresDadReview]' passed (0.001 seconds).
+Test Suite 'LinleyTests' passed at 2026-10-17 14:56:28.030.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.001 (0.002) seconds
+Test Suite 'PrivateLibraryTests' started at 2026-10-17 14:56:28.030.
+Test Case '-[LinleyTests.PrivateLibraryTests testCorruptManifestFailsClosedAndIsNotOverwritten]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testCorruptManifestFailsClosedAndIsNotOverwritten]' passed (0.005 seconds).
+Test Case '-[LinleyTests.PrivateLibraryTests testFailedSaveDoesNotCreateManifestEntry]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testFailedSaveDoesNotCreateManifestEntry]' passed (0.002 seconds).
+Test Case '-[LinleyTests.PrivateLibraryTests testNoConnectedPermissionsAndOnlyBundledSearchResults]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testNoConnectedPermissionsAndOnlyBundledSearchResults]' passed (0.001 seconds).
+Test Case '-[LinleyTests.PrivateLibraryTests testPictureAndVideoPersistAcrossNewStoreAndDelete]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testPictureAndVideoPersistAcrossNewStoreAndDelete]' passed (0.018 seconds).
+Test Case '-[LinleyTests.PrivateLibraryTests testPrivateDirectoryExcludedFromBackupAndPathValidation]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testPrivateDirectoryExcludedFromBackupAndPathValidation]' passed (0.001 seconds).
+Test Case '-[LinleyTests.PrivateLibraryTests testProfileReplacementRemovalAndLinkedCreatorPersistence]' started.
+Test Case '-[LinleyTests.PrivateLibraryTests testProfileReplacementRemovalAndLinkedCreatorPersistence]' passed (0.011 seconds).
+Test Suite 'PrivateLibraryTests' passed at 2026-10-17 14:56:28.069.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.037 (0.039) seconds
+Test Suite 'QuestCharacterTests' started at 2026-10-17 14:56:28.069.
+Test Case '-[LinleyTests.QuestCharacterTests testNewGamesStartWithLoreleiAndOldCustomHeroesMigrate]' started.
+Test Case '-[LinleyTests.QuestCharacterTests testNewGamesStartWithLoreleiAndOldCustomHeroesMigrate]' passed (0.001 seconds).
+Test Suite 'QuestCharacterTests' passed at 2026-10-17 14:56:28.070.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'LinleyTests.xctest' passed at 2026-10-17 14:56:28.070.
+	 Executed 18 tests, with 0 failures (0 unexpected) in 0.127 (0.133) seconds
+Test Suite 'All tests' passed at 2026-10-17 14:56:28.070.
+	 Executed 18 tests, with 0 failures (0 unexpected) in 0.127 (0.133) seconds
