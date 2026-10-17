@@ -5,7 +5,7 @@ import UIKit
 final class LinleyTests: XCTestCase {
     func testBrandCopyIsReadyForPrototype() {
         XCTAssertEqual(LinleyCopy.appName, "Linley")
-        XCTAssertEqual(LinleyCopy.version, "Prototype 0.4.1")
+        XCTAssertEqual(LinleyCopy.version, "Prototype 0.4.4")
         XCTAssertFalse(LinleyCopy.tagline.isEmpty)
     }
 

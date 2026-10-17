@@ -26,6 +26,9 @@ struct HomeView: View {
                             Label("Creative Shop", systemImage: "sparkles")
                         }
                     }.font(.headline).buttonStyle(.bordered)
+                    NavigationLink { SketchbookView() } label: {
+                        Label("My Sketchbook", systemImage: "pencil.and.outline")
+                    }.font(.headline).buttonStyle(.bordered).accessibilityIdentifier("openSketchbook")
                     VStack(alignment: .leading, spacing: 20) {
                         Image(systemName: "sparkles").font(.largeTitle)
                         Text(nickname.isEmpty ? "Make something\nonly you can make." : "Your next creation,\n\(nickname).")

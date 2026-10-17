@@ -96,6 +96,9 @@ struct CreativeStudioView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
                 CoinBalanceView()
+                NavigationLink { SketchbookView() } label: {
+                    Label("Draw in My Sketchbook", systemImage: "pencil.and.outline")
+                }.buttonStyle(.bordered).accessibilityIdentifier("studioSketchbook")
                 Text("Make a little masterpiece").font(.title2.bold())
                 Text("Choose a stamp and color, then tap the paper. Saving and reusing your art supplies is always free.")
                 artPaper
