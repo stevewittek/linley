@@ -2,20 +2,20 @@ import SwiftUI
 
 @main
 struct LinleyApp: App {
-    @AppStorage("linley.profile.nickname") private var nickname = ""
     @StateObject private var suggestionStore = SuggestionStore()
+    @StateObject private var mediaStore = MediaStore()
 
     var body: some Scene {
         WindowGroup {
-            Group {
-                if nickname.isEmpty {
-                    ProfileSetupView(canCancel: false)
-                } else {
-                    RootTabView()
-                }
-            }
-            .environmentObject(suggestionStore)
-            .tint(LinleyTheme.coralDeep)
+            RootTabView()
+                .environmentObject(suggestionStore)
+                .environmentObject(mediaStore)
+                .tint(LinleyTheme.coralDeep)
+                .alert("Private library", isPresented: Binding(
+                    get: { mediaStore.errorMessage != nil },
+                    set: { if !$0 { mediaStore.errorMessage = nil } }
+                )) { Button("OK") { mediaStore.errorMessage = nil } }
+                message: { Text(mediaStore.errorMessage ?? "") }
         }
     }
 }

@@ -1,0 +1,4 @@
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project linley/Linley.xcodeproj -scheme Linley -destination "generic/platform=iOS Simulator" -derivedDataPath /tmp/LinleyPhase1Build CODE_SIGNING_ALLOWED=NO ARCHS=arm64 build-for-testing
+2026-10-17 13:18:13.777 appintentsmetadataprocessor[47558:734023] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+2026-10-17 13:18:14.955 appintentsmetadataprocessor[47563:734065] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+** TEST BUILD SUCCEEDED **

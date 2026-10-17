@@ -1,126 +1,55 @@
 import SwiftUI
 
 struct HomeView: View {
-    @AppStorage("linley.profile.nickname") private var nickname = "Creator"
-
-    private let columns = [
-        GridItem(.adaptive(minimum: 220, maximum: 360), spacing: 18)
-    ]
+    @AppStorage("linley.profile.nickname") private var nickname = ""
 
     var body: some View {
         ZStack {
-            LinleyTheme.pageGradient
-                .ignoresSafeArea()
-
+            LinleyTheme.pageGradient.ignoresSafeArea()
             ScrollView {
-                VStack(alignment: .leading, spacing: 28) {
-                    header
-                    hero
-
-                    Text("What do you want to do today?")
-                        .font(.title2.weight(.bold))
-                        .foregroundStyle(LinleyTheme.plum)
-
-                    LazyVGrid(columns: columns, alignment: .leading, spacing: 18) {
-                        FeatureCard(
-                            icon: "video.fill",
-                            title: "Make a video",
-                            detail: "Tap the coral plus button to record a short creative clip. Nothing is posted or uploaded.",
-                            color: LinleyTheme.coral
-                        )
-                        FeatureCard(
-                            icon: "wand.and.stars",
-                            title: "Find a trendy idea",
-                            detail: "The Idea Lab has safe, parent-approved prompts for videos, stories, and creative challenges.",
-                            color: LinleyTheme.gold
-                        )
-                        FeatureCard(
-                            icon: "hammer.fill",
-                            title: "Help build Linley",
-                            detail: "Save a feature idea for Dad to review. Ideas never change the real app automatically.",
-                            color: LinleyTheme.mint
-                        )
+                VStack(alignment: .leading, spacing: 26) {
+                    HStack(spacing: 12) {
+                        NavigationLink { WatchView() } label: {
+                            destination("Watch", icon: "play.rectangle.fill", color: LinleyTheme.sky)
+                        }
+                        NavigationLink { GalleryView() } label: {
+                            destination("My Stuff", icon: "square.stack.fill", color: LinleyTheme.orange)
+                        }
                     }
+                    LinleyWordmark()
+                    VStack(alignment: .leading, spacing: 20) {
+                        Image(systemName: "sparkles").font(.largeTitle)
+                        Text(nickname.isEmpty ? "Make something\nonly you can make." : "Your next creation,\n\(nickname).")
+                            .font(.system(.largeTitle, design: .rounded, weight: .heavy))
+                        Text("Little moments. Big imagination.")
+                            .font(.title3)
+                        HStack {
+                            Label("Your space to create", systemImage: "camera.aperture")
+                            Spacer()
+                            Image(systemName: "scribble.variable").font(.largeTitle)
+                        }.font(.subheadline.weight(.semibold))
+                    }
+                    .foregroundStyle(.white)
+                    .padding(26).frame(maxWidth: .infinity, alignment: .leading)
+                    .background(LinleyTheme.heroGradient, in: RoundedRectangle(cornerRadius: 30))
+                    Label("Made here. Kept here.", systemImage: "lock.fill")
+                        .font(.headline).foregroundStyle(LinleyTheme.plum)
+                    Text("Tap L to take a photo or make a video. Your creations stay private on this device.")
+                        .foregroundStyle(.secondary)
                 }
-                .frame(maxWidth: 980, alignment: .leading)
-                .padding(.horizontal, 24)
-                .padding(.vertical, 22)
-                .frame(maxWidth: .infinity)
+                .padding(22).frame(maxWidth: 900).frame(maxWidth: .infinity)
             }
         }
-        .navigationTitle("Home")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Home").navigationBarTitleDisplayMode(.inline)
     }
 
-    private var header: some View {
-        HStack(spacing: 16) {
-            LinleyMark(size: 66)
-            LinleyWordmark()
-            Spacer()
-            Text(LinleyCopy.version)
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(LinleyTheme.plum.opacity(0.72))
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(.white.opacity(0.75), in: Capsule())
+    private func destination(_ title: String, icon: String, color: Color) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Image(systemName: icon).font(.title)
+            Text(title).font(.title2.bold())
         }
-    }
-
-    private var hero: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            HStack(alignment: .top) {
-                Image(systemName: "sparkles")
-                    .font(.title.weight(.bold))
-                    .foregroundStyle(LinleyTheme.gold)
-                Spacer()
-                Circle()
-                    .fill(LinleyTheme.coral.opacity(0.85))
-                    .frame(width: 76, height: 76)
-                    .overlay {
-                        Image(systemName: "arrow.triangle.2.circlepath")
-                            .font(.title.weight(.bold))
-                            .foregroundStyle(.white)
-                    }
-            }
-
-            Text("Hi, \(nickname)!")
-                .font(.system(.largeTitle, design: .rounded, weight: .heavy))
-                .foregroundStyle(.white)
-                .fixedSize(horizontal: false, vertical: true)
-
-            Text(LinleyCopy.tagline)
-                .font(.title3)
-                .foregroundStyle(.white.opacity(0.92))
-                .frame(maxWidth: 680, alignment: .leading)
-
-            NavigationLink {
-                IdeaLabView()
-            } label: {
-                Label("Open the Idea Lab", systemImage: "arrow.right")
-                    .font(.headline)
-                    .foregroundStyle(LinleyTheme.plum)
-                    .padding(.horizontal, 18)
-                    .padding(.vertical, 13)
-                    .background(LinleyTheme.gold, in: Capsule())
-            }
-            .accessibilityHint("Opens safe, curated creative prompts")
-        }
-        .padding(28)
-        .background(LinleyTheme.heroGradient, in: RoundedRectangle(cornerRadius: 32, style: .continuous))
-        .overlay(alignment: .bottomTrailing) {
-            Circle()
-                .stroke(Color.white.opacity(0.08), lineWidth: 28)
-                .frame(width: 180, height: 180)
-                .offset(x: 42, y: 58)
-                .allowsHitTesting(false)
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
-        .shadow(color: LinleyTheme.plum.opacity(0.18), radius: 24, y: 12)
-    }
-}
-
-#Preview {
-    NavigationStack {
-        HomeView()
+        .foregroundStyle(LinleyTheme.plum).padding(20)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(color.opacity(0.27), in: RoundedRectangle(cornerRadius: 24))
     }
 }

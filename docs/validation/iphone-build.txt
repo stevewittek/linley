@@ -1,0 +1,4 @@
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project linley/Linley.xcodeproj -scheme Linley -destination generic/platform=iOS -derivedDataPath /tmp/LinleyPhase1Phone CODE_SIGNING_ALLOWED=NO build-for-testing
+2026-10-17 13:19:11.489 appintentsmetadataprocessor[47632:734996] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+2026-10-17 13:19:11.914 appintentsmetadataprocessor[47636:735029] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+** TEST BUILD SUCCEEDED **

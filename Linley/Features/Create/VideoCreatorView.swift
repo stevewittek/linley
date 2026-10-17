@@ -1,150 +1,131 @@
 import AVKit
 import SwiftUI
-import UniformTypeIdentifiers
-import UIKit
 
 struct VideoCreatorView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var selectedDuration: TimeInterval = 15
-    @State private var showingCamera = false
-    @State private var showingCameraUnavailable = false
-    @State private var videoURL: URL?
-
-    private let durations: [TimeInterval] = [15, 30, 60]
+    @EnvironmentObject private var store: MediaStore
+    @State private var videoMode = false
+    @State private var camera = false
+    @State private var library = false
+    @State private var editor = false
+    @State private var draft: DraftMedia?
+    @State private var error: String?
+    @State private var busy = false
+    @State private var started = false
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                LinleyTheme.pageGradient.ignoresSafeArea()
-
-                ScrollView {
-                    VStack(spacing: 24) {
-                        Image(systemName: "video.badge.plus")
-                            .font(.system(size: 54, weight: .bold))
-                            .foregroundStyle(.white)
-                            .frame(width: 108, height: 108)
-                            .background(LinleyTheme.coralDeep, in: RoundedRectangle(cornerRadius: 34, style: .continuous))
-
-                        Text("Make a Linley video")
-                            .font(.system(.largeTitle, design: .rounded, weight: .heavy))
-                            .foregroundStyle(LinleyTheme.plum)
-                            .multilineTextAlignment(.center)
-
-                        Text("Record something creative. This prototype does not post or upload your video.")
-                            .font(.title3)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-
-                        Picker("Maximum length", selection: $selectedDuration) {
-                            ForEach(durations, id: \.self) { duration in
-                                Text("\(Int(duration)) sec").tag(duration)
-                            }
+            ScrollView {
+                VStack(spacing: 24) {
+                    Picker("Capture mode", selection: $videoMode) {
+                        Text("Photo").tag(false)
+                        Text("Video").tag(true)
+                    }.pickerStyle(.segmented)
+                    if let draft {
+                        MediaPreview(url: draft.url, kind: draft.kind).frame(height: 360)
+                        Button("Save to My Stuff") {
+                            do { try store.save(source: draft.url, kind: draft.kind); cleanup(); dismiss() }
+                            catch { self.error = error.localizedDescription }
+                        }.buttonStyle(LinleyPrimaryButtonStyle())
+                        if draft.kind == .video && UIVideoEditorController.canEditVideo(atPath: draft.url.path) {
+                            Button("Edit Video") { editor = true }.buttonStyle(.bordered)
                         }
-                        .pickerStyle(.segmented)
-
-                        if let videoURL {
-                            VideoPlayer(player: AVPlayer(url: videoURL))
-                                .frame(minHeight: 320)
-                                .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
-
-                            Button("Record another") {
-                                startCamera()
-                            }
-                            .buttonStyle(LinleyPrimaryButtonStyle())
-                        } else {
-                            Button {
-                                startCamera()
-                            } label: {
-                                Label("Open camera", systemImage: "camera.fill")
-                            }
-                            .buttonStyle(LinleyPrimaryButtonStyle())
-                        }
-
-                        Label("Ask a parent before sharing a video with anyone.", systemImage: "checkmark.shield.fill")
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(LinleyTheme.plum)
+                        Button("Retake") { cleanup(); Task { await openCamera() } }.buttonStyle(.bordered)
+                        Button("Discard", role: .destructive) { cleanup() }
+                    } else {
+                        Image(systemName: videoMode ? "video.fill" : "camera.fill")
+                            .font(.system(size: 72)).foregroundStyle(LinleyTheme.coralDeep).padding(32)
+                        Text("Your next great creation").font(.title.bold())
+                        Text("Choose Photo or Video, then open the camera. Use the camera's flip button for the other lens.")
+                            .foregroundStyle(.secondary).multilineTextAlignment(.center)
+                        Button(videoMode ? "Record video" : "Take photo") { Task { await openCamera() } }
+                            .buttonStyle(LinleyPrimaryButtonStyle()).disabled(busy)
+                        Button { library = true } label: { Label("Import photo or video", systemImage: "photo.on.rectangle") }
+                            .buttonStyle(.bordered)
                     }
-                    .frame(maxWidth: 720)
-                    .padding(28)
-                    .frame(maxWidth: .infinity)
-                }
+                    Label("Private on this device", systemImage: "lock.fill").font(.footnote)
+                }.padding(24).frame(maxWidth: 700).frame(maxWidth: .infinity)
             }
+            .background(LinleyTheme.pageGradient)
             .navigationTitle("Create")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { cleanup(); dismiss() } } }
+            .fullScreenCover(isPresented: $camera) {
+                CameraCapture(video: videoMode) { result in
+                    camera = false
+                    switch result {
+                    case .success(let item): draft = item
+                    case .failure(let failure): error = failure.localizedDescription
+                    }
+                }
+                    .ignoresSafeArea()
+            }
+            .sheet(isPresented: $library) {
+                LibraryPicker { result in
+                    library = false
+                    switch result {
+                    case .success(let item): draft = item
+                    case .failure(let failure): error = failure.localizedDescription
+                    }
                 }
             }
-            .sheet(isPresented: $showingCamera) {
-                CameraRecorder(maximumDuration: selectedDuration) { url in
-                    videoURL = url
+            .sheet(isPresented: $editor) {
+                if let draft {
+                    VideoEditorView(videoURL: draft.url, maximumDuration: 60) { url in
+                        do {
+                            let owned = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".mov")
+                            try FileManager.default.copyItem(at: url, to: owned)
+                            cleanup()
+                            self.draft = DraftMedia(url: owned, kind: .video)
+                            editor = false
+                        } catch { editor = false; self.error = error.localizedDescription }
+                    } onCancel: { editor = false } onFailed: { error = $0; editor = false }
                 }
-                .ignoresSafeArea()
             }
-            .alert("Camera unavailable", isPresented: $showingCameraUnavailable) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text("Try Linley on a physical iPad or iPhone with a camera.")
+            .alert("Could not finish", isPresented: Binding(get: { error != nil }, set: { if !$0 { error = nil } })) {
+                Button("OK") { error = nil }
+            } message: { Text(error ?? "") }
+            .task {
+                guard !started else { return }
+                started = true
+                await openCamera()
             }
         }
     }
-
-    private func startCamera() {
+    @MainActor private func openCamera() async {
+        guard !busy else { return }
+        busy = true
+        defer { busy = false }
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-            showingCameraUnavailable = true
+            error = "This device has no camera. You can still import a photo or video. Camera capture needs a physical iPhone or iPad."
             return
         }
-        showingCamera = true
+        guard await CameraAccess.request(video: videoMode) else {
+            error = "Camera access is required to capture. Video also needs microphone access. You can change access in Settings or import instead."
+            return
+        }
+        camera = true
+    }
+    private func cleanup() {
+        if let draft { try? FileManager.default.removeItem(at: draft.url) }
+        draft = nil
     }
 }
 
-private struct CameraRecorder: UIViewControllerRepresentable {
-    let maximumDuration: TimeInterval
-    let onFinished: (URL) -> Void
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(onFinished: onFinished)
-    }
-
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.sourceType = .camera
-        picker.mediaTypes = [UTType.movie.identifier]
-        picker.cameraCaptureMode = .video
-        picker.videoMaximumDuration = maximumDuration
-        picker.videoQuality = .typeMedium
-        picker.delegate = context.coordinator
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
-        uiViewController.videoMaximumDuration = maximumDuration
-    }
-
-    final class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        private let onFinished: (URL) -> Void
-
-        init(onFinished: @escaping (URL) -> Void) {
-            self.onFinished = onFinished
-        }
-
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            picker.dismiss(animated: true)
-        }
-
-        func imagePickerController(
-            _ picker: UIImagePickerController,
-            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
-        ) {
-            if let url = info[.mediaURL] as? URL {
-                onFinished(url)
+struct MediaPreview: View {
+    let url: URL
+    let kind: Creation.Kind
+    @State private var player: AVPlayer?
+    var body: some View {
+        Group {
+            if kind == .video {
+                VideoPlayer(player: player).onAppear { player = AVPlayer(url: url) }
+                    .onDisappear { player?.pause(); player = nil }
+                    .id(url)
+            } else if let image = UIImage(contentsOfFile: url.path) {
+                Image(uiImage: image).resizable().scaledToFit()
+            } else {
+                ContentUnavailableView("Media unavailable", systemImage: "photo.badge.exclamationmark")
             }
-            picker.dismiss(animated: true)
-        }
+        }.clipShape(RoundedRectangle(cornerRadius: 20))
     }
-}
-
-#Preview {
-    VideoCreatorView()
 }

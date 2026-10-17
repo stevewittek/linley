@@ -7,6 +7,7 @@ enum LinleyTheme {
     static let cream = Color(red: 1.00, green: 0.94, blue: 0.96)
     static let gold = Color(red: 1.00, green: 0.78, blue: 0.34)
     static let mint = Color(red: 0.44, green: 0.84, blue: 0.70)
+    static let orange = Color(red: 1, green: 0.56, blue: 0.24)
     static let sky = Color(red: 0.44, green: 0.74, blue: 0.96)
 
     static let pageGradient = LinearGradient(
@@ -24,6 +25,6 @@ enum LinleyTheme {
 
 enum LinleyCopy {
     static let appName = "Linley"
-    static let tagline = "Create it. Share it safely. Help build what comes next."
-    static let version = "Prototype 0.3"
+    static let tagline = "Little moments. Big imagination."
+    static let version = "Prototype 0.4"
 }
