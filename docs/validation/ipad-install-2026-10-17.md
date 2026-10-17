@@ -16,3 +16,9 @@ Next: the owner frees space using Settings → General → iPad Storage and keep
 - Launch was rejected by iPadOS security: invalid signature, inadequate entitlements or profile not explicitly trusted. This is not a confirmed runtime launch.
 - Local strict signature verification passed. The embedded provisioning profile includes this iPad and expires October 24, 2026. Manual developer trust is the next check; an entitlement/signing issue remains possible if trust is already established.
 - Owner action: Settings → General → VPN & Device Management → developer entry listing Linley → Trust (or follow the displayed Allow & Restart flow), then open Linley. No trust or security setting was changed automatically.
+
+## Developer trust approved
+
+The owner reports approving the developer on the iPad. A new device launch request succeeded for com.netherwooddatapartners.linley. This verifies OS-level app launch after trust; it does not establish camera, import, crop, playback or Parent Center acceptance. Physical iPad XCTest execution was started next using the existing test suite and isolated temporary test storage.
+
+Physical iPad XCTest result: **8 tests passed, 0 failures**. The six PrivateLibraryTests verify media copy/reload/delete using bundled video and a generated JPEG, failed-save behavior, backup exclusion/path validation, profile replacement/removal and creator links, default-deny policy/search/filtering, and corrupt-index preservation. Two existing brand/suggestion tests also passed. Test summary: ipad-tests-2026-10-17.txt. This replaces the prior “not executed” status for this XCTest suite on iPad only; hands-on capture/import/editing/parent-authentication and iPhone tests remain pending.
