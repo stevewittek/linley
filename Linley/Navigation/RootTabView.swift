@@ -8,8 +8,13 @@ struct RootTabView: View {
             HomeView()
             .safeAreaInset(edge: .bottom) {
                 HStack {
-                    NavigationLink { ProfileView() } label: {
-                        Label("Profile", systemImage: "person.crop.circle")
+                    HStack(spacing: 14) {
+                        NavigationLink { ProfileView() } label: {
+                            VStack(spacing: 5) { Image(systemName: "person.crop.circle").font(.title3); Text("Profile") }
+                        }
+                        NavigationLink { GamesView() } label: {
+                            VStack(spacing: 5) { Image(systemName: "gamecontroller.fill").font(.title3); Text("Games") }
+                        }.accessibilityIdentifier("openGames")
                     }
                     .frame(maxWidth: .infinity)
                     Button { showingCreator = true } label: { LinleyMark(size: 76) }

@@ -1,4 +1,4 @@
-# Linley 0.4 — Phase 1 local prototype
+# Linley 0.4.1 — Private creation and Creative Quest
 
 Lorelei's creative app under Netherwood Data Partners. The request calls the app “Linly”; this implementation preserves the existing Linley repository, branding, bundle ID and SwiftUI architecture. iPhone and iPad, iOS 17+.
 
@@ -11,6 +11,13 @@ Lorelei's creative app under Netherwood Data Partners. The request calls the app
 - Parent Center uses device-owner authentication, locks on leaving/background and shows enforced feature policy. Device authentication does not verify an adult or constitute parental consent.
 
 Implementation is not physical-device acceptance. See [VERIFICATION.md](VERIFICATION.md) for exactly what passed and what remains unverified. No Azure, uploads, analytics, ads, real discovery, public sharing or communication is enabled. Private media/index/profile storage is protected and excluded from backup.
+
+## Creative Quest
+Home → **Games** beside Profile → **Let’s play**. Tap garden tiles or use arrows to collect five art supplies and earn a sticker plus **100 Linley Coins**. Eight stickers, four rotating garden names and replayable adventures. **My Hero** offers Lorelei (default), Hailey, or Make my own with hair/skin/outfit controls. Illustrated characters were created from the parent-provided reference; the original family photo is not bundled or committed. Game progress, heroes, coins and unlocked packs save locally. No ads, real-money purchases, timers, chat or online accounts.
+
+Home → **Creative Shop** spends earned coins on permanent art-stamp packs (100, 200 or 300 coins). The balance is shared automatically with the game. Home → **Image Maker** has free basic stamps plus your unlocked packs; place stamps, choose colors, undo and save a private picture to **My Stuff**. Reuse and saving cost no coins. This works locally without paid AI services. See [earn-and-create details](docs/CREATIVE_QUEST.md#earn-and-create).
+
+See [game guide](docs/CREATIVE_QUEST.md), [character art and prompts](docs/CHARACTER_ART.md), and [game validation](docs/CREATIVE_QUEST_VALIDATION.md). The concept board is a proposal; device screenshots and tests are separate evidence. Family visual acceptance remains pending.
 
 ## Run on an iPhone
 1. Open `Linley.xcodeproj` in Xcode 27 (or compatible Xcode supporting iOS 17+).

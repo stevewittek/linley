@@ -1,5 +1,25 @@
 # Phase 1 verification — October 17, 2026
 
+## Creative Quest 0.4.1 update
+
+Lorelei/Hailey illustrated heroes, the game loop and current iPad evidence are documented in [CREATIVE_QUEST_VALIDATION.md](docs/CREATIVE_QUEST_VALIDATION.md). The physical iPad passed 18 model/storage tests and the focused game UI walkthrough; two coin/Image Maker walkthroughs passed separately. Portrait and landscape device screenshots are saved. This supersedes the earlier simulator/device blocking notes only for these verified checks; camera and iPhone gameplay/family acceptance remain open.
+
+
+## Earned coins and Image Maker update
+
+Working source adds 100 Linley Coins per new adventure completion, a shared local balance, confirmed permanent art-pack unlocks and a free local stamp Image Maker saving into My Stuff. No real-money purchases or paid AI service.
+
+On the physical 10th-generation iPad: **18 model/storage tests passed**, and **two focused UI walkthroughs passed** for earned-pack-to-image-save and free-image-to-gallery. Earlier UI timing/runner failures and their final passing result are recorded in [COINS_VALIDATION.md](docs/COINS_VALIDATION.md). Real test-only device screenshots are linked there. Family visual acceptance and new iPhone runtime checks remain open; this does not close milestone #2.
+
+## Physical iPhone retry — October 17, 2026
+
+- Current source commit: `3dbfeab` on `codex/phase1-iphone`.
+- Signed Debug build succeeded for the paired iPhone 17 Pro after allowing Xcode provisioning updates using the configured developer team.
+- Device installation succeeded for `com.netherwooddatapartners.linley`, version 0.4.0 build 5.
+- Launch was denied by iOS security: invalid signature, inadequate entitlements, or developer profile not explicitly trusted. The device error does not distinguish these causes; no successful launch or hands-on feature validation is claimed.
+- Next: on the iPhone, review the developer trust prompt or Settings > General > VPN & Device Management, then open Linley again. If trust is already established, investigate the signing/profile rejection further.
+- This supersedes the earlier connection timeout for build/install only. Family acceptance and runtime checks remain open.
+
 ## Passed
 - Xcode 27.0 (27A266a): unsigned generic iOS `build-for-testing` compiles the iPhone/iPad application and XCTest bundle.
 - Unsigned arm64 iOS Simulator `build-for-testing` compiles the app and XCTest bundle.

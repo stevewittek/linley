@@ -17,6 +17,15 @@ struct HomeView: View {
                         }
                     }
                     LinleyWordmark()
+                    CoinBalanceView()
+                    HStack(spacing: 20) {
+                        NavigationLink { CreativeStudioView() } label: {
+                            Label("Image Maker", systemImage: "paintpalette.fill")
+                        }
+                        NavigationLink { CreativeShopView() } label: {
+                            Label("Creative Shop", systemImage: "sparkles")
+                        }
+                    }.font(.headline).buttonStyle(.bordered)
                     VStack(alignment: .leading, spacing: 20) {
                         Image(systemName: "sparkles").font(.largeTitle)
                         Text(nickname.isEmpty ? "Make something\nonly you can make." : "Your next creation,\n\(nickname).")

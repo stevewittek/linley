@@ -1,0 +1,199 @@
+Test Suite 'Selected tests' started at 2026-10-17 15:02:06.732.
+Test Suite 'LinleyUITests.xctest' started at 2026-10-17 15:02:06.733.
+Test Suite 'CreativeQuestUITests' started at 2026-10-17 15:02:06.733.
+Test Case '-[LinleyUITests.CreativeQuestUITests testPlayExploreCustomizeAndStickerBoard]' started.
+    t =     0.00s Start Test at 2026-10-17 15:02:06.734
+    t =     0.02s Set Up
+    t =     0.02s Setting device orientation to Portrait
+    t =     0.03s     Wait for com.netherwooddatapartners.linley to idle
+    t =     0.04s Open com.netherwooddatapartners.linley
+    t =     0.04s     Launch com.netherwooddatapartners.linley
+    t =     0.04s         Terminate com.netherwooddatapartners.linley:2484
+2026-10-17 15:02:08.071 xcodebuild[54974:832414] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-17 15:02:08.072 xcodebuild[54974:832414] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     2.81s         Setting up automation session
+    t =     3.02s         Wait for com.netherwooddatapartners.linley to idle
+    t =     4.22s Waiting 10.0s for "openGames" Button to exist
+    t =     5.26s     Checking `Expect predicate `existsNoRetry == 1` for object "openGames" Button`
+    t =     5.27s         Checking existence of `"openGames" Button`
+    t =     5.37s Tap "openGames" Button
+    t =     5.37s     Wait for com.netherwooddatapartners.linley to idle
+    t =     5.39s     Find the "openGames" Button
+    t =     5.42s     Check for interrupting elements affecting "openGames" Button
+    t =     5.45s     Synthesize event
+    t =     5.74s     Wait for com.netherwooddatapartners.linley to idle
+    t =     6.54s Waiting 5.0s for "playCreativeQuest" Button to exist
+    t =     7.56s     Checking `Expect predicate `existsNoRetry == 1` for object "playCreativeQuest" Button`
+    t =     7.56s         Checking existence of `"playCreativeQuest" Button`
+    t =     7.64s Tap "playCreativeQuest" Button
+    t =     7.64s     Wait for com.netherwooddatapartners.linley to idle
+    t =     7.66s     Find the "playCreativeQuest" Button
+    t =     7.70s     Check for interrupting elements affecting "playCreativeQuest" Button
+    t =     7.75s     Synthesize event
+    t =     8.05s     Wait for com.netherwooddatapartners.linley to idle
+    t =     8.42s Waiting 5.0s for "My Hero" Button to exist
+    t =     9.44s     Checking `Expect predicate `existsNoRetry == 1` for object "My Hero" Button`
+    t =     9.44s         Checking existence of `"My Hero" Button`
+    t =     9.78s Added attachment named 'Creative Quest — device verified initial screen'
+    t =     9.78s Checking existence of `Button (First Match)`
+    t =     9.82s Tap "questCell-1-1" Button
+    t =     9.82s     Wait for com.netherwooddatapartners.linley to idle
+    t =     9.82s     Find the "questCell-1-1" Button
+    t =     9.87s     Check for interrupting elements affecting "questCell-1-1" Button
+    t =     9.91s     Synthesize event
+    t =    10.20s     Wait for com.netherwooddatapartners.linley to idle
+    t =    11.23s Checking `Expect predicate `exists == 0` for object Button (First Match)`
+    t =    11.23s     Checking existence of `Button (First Match)`
+    t =    11.27s     Capturing element debug description
+    t =    12.29s Checking `Expect predicate `exists == 0` for object Button (First Match)`
+    t =    12.29s     Checking existence of `Button (First Match)`
+    t =    12.37s Checking existence of `Button (First Match)`
+    t =    12.40s Tap "questCell-5-1" Button
+    t =    12.40s     Wait for com.netherwooddatapartners.linley to idle
+    t =    12.41s     Find the "questCell-5-1" Button
+    t =    12.45s     Check for interrupting elements affecting "questCell-5-1" Button
+    t =    12.50s     Synthesize event
+    t =    12.80s     Wait for com.netherwooddatapartners.linley to idle
+    t =    13.82s Checking `Expect predicate `exists == 0` for object Button (First Match)`
+    t =    13.83s     Checking existence of `Button (First Match)`
+    t =    13.92s Checking existence of `Button (First Match)`
+    t =    13.97s Checking existence of `Button (First Match)`
+    t =    14.00s Tap "questCell-1-6" Button
+    t =    14.00s     Wait for com.netherwooddatapartners.linley to idle
+    t =    14.02s     Find the "questCell-1-6" Button
+    t =    14.05s     Check for interrupting elements affecting "questCell-1-6" Button
+    t =    14.10s     Synthesize event
+    t =    14.40s     Wait for com.netherwooddatapartners.linley to idle
+    t =    15.44s Checking `Expect predicate `exists == 0` for object Button (First Match)`
+    t =    15.44s     Checking existence of `Button (First Match)`
+    t =    15.50s     Capturing element debug description
+    t =    16.43s Checking `Expect predicate `exists == 0` for object Button (First Match)`
+    t =    16.43s     Checking existence of `Button (First Match)`
+    t =    16.53s Checking existence of `Button (First Match)`
+    t =    16.57s Tap "questCell-5-7" Button
+    t =    16.57s     Wait for com.netherwooddatapartners.linley to idle
+    t =    16.58s     Find the "questCell-5-7" Button
+    t =    16.63s     Check for interrupting elements affecting "questCell-5-7" Button
+    t =    16.67s     Synthesize event
+    t =    16.95s     Wait for com.netherwooddatapartners.linley to idle
+    t =    17.99s Checking `Expect predicate `exists == 0` for object Button (First Match)`
+    t =    18.00s     Checking existence of `Button (First Match)`
+    t =    18.09s Waiting 8.0s for "Next adventure" Button to exist
+    t =    19.11s     Checking `Expect predicate `existsNoRetry == 1` for object "Next adventure" Button`
+    t =    19.11s         Checking existence of `"Next adventure" Button`
+    t =    19.46s Added attachment named 'Creative Quest — device verified completed adventure'
+    t =    19.46s Tap "Sticker Board" Button
+    t =    19.46s     Wait for com.netherwooddatapartners.linley to idle
+    t =    19.47s     Find the "Sticker Board" Button
+    t =    19.54s     Check for interrupting elements affecting "Sticker Board" Button
+    t =    19.58s     Synthesize event
+    t =    19.86s     Wait for com.netherwooddatapartners.linley to idle
+    t =    20.31s Waiting 5.0s for "1 of 8 stickers collected" StaticText to exist
+    t =    21.34s     Checking `Expect predicate `existsNoRetry == 1` for object "1 of 8 stickers collected" StaticText`
+    t =    21.34s         Checking existence of `"1 of 8 stickers collected" StaticText`
+    t =    21.72s Added attachment named 'Creative Quest — device verified sticker board'
+    t =    21.72s Tap "Done" Button
+    t =    21.72s     Wait for com.netherwooddatapartners.linley to idle
+    t =    21.72s     Find the "Done" Button
+    t =    21.82s     Check for interrupting elements affecting "Done" Button
+    t =    21.86s     Synthesize event
+    t =    22.15s     Wait for com.netherwooddatapartners.linley to idle
+    t =    22.94s Tap "My Hero" Button
+    t =    22.94s     Wait for com.netherwooddatapartners.linley to idle
+    t =    22.96s     Find the "My Hero" Button
+    t =    23.04s     Check for interrupting elements affecting "My Hero" Button
+    t =    23.10s     Synthesize event
+    t =    23.41s     Wait for com.netherwooddatapartners.linley to idle
+    t =    24.18s Waiting 5.0s for "questCharacterPicker" Button to exist
+    t =    25.22s     Checking `Expect predicate `existsNoRetry == 1` for object "questCharacterPicker" Button`
+    t =    25.22s         Checking existence of `"questCharacterPicker" Button`
+    t =    25.35s Tap "questCharacterPicker" Button
+    t =    25.36s     Wait for com.netherwooddatapartners.linley to idle
+    t =    25.37s     Find the "questCharacterPicker" Button
+    t =    25.43s     Check for interrupting elements affecting "questCharacterPicker" Button
+    t =    25.49s     Synthesize event
+    t =    25.80s     Wait for com.netherwooddatapartners.linley to idle
+    t =    26.89s Tap "Hailey" Button
+    t =    26.89s     Wait for com.netherwooddatapartners.linley to idle
+    t =    26.90s     Find the "Hailey" Button
+    t =    27.02s     Check for interrupting elements affecting "Hailey" Button
+    t =    27.09s     Synthesize event
+    t =    27.40s     Wait for com.netherwooddatapartners.linley to idle
+    t =    29.06s Added attachment named 'Creative Quest — Hailey character on device'
+    t =    29.06s Tap "questCharacterPicker" Button
+    t =    29.06s     Wait for com.netherwooddatapartners.linley to idle
+    t =    29.07s     Find the "questCharacterPicker" Button
+    t =    29.17s     Check for interrupting elements affecting "questCharacterPicker" Button
+    t =    29.22s     Synthesize event
+    t =    29.50s     Wait for com.netherwooddatapartners.linley to idle
+    t =    30.60s Tap "Lorelei" Button
+    t =    30.60s     Wait for com.netherwooddatapartners.linley to idle
+    t =    30.62s     Find the "Lorelei" Button
+    t =    30.73s     Check for interrupting elements affecting "Lorelei" Button
+    t =    30.81s     Synthesize event
+    t =    31.11s     Wait for com.netherwooddatapartners.linley to idle
+    t =    32.54s Checking existence of `"Long hair" Switch`
+    t =    32.64s Swipe up Target Application 'com.netherwooddatapartners.linley'
+    t =    32.64s     Wait for com.netherwooddatapartners.linley to idle
+    t =    32.65s     Find the Target Application 'com.netherwooddatapartners.linley'
+    t =    32.71s     Check for interrupting elements affecting "Linley" Application
+    t =    32.77s     Synthesize event
+    t =    33.21s     Wait for com.netherwooddatapartners.linley to idle
+    t =    33.94s Checking existence of `"Long hair" Switch`
+    t =    34.05s Find the "Long hair" Switch
+    t =    34.15s Waiting 5.0s for "Long hair" Switch to exist
+    t =    35.18s     Checking `Expect predicate `existsNoRetry == 1` for object "Long hair" Switch`
+    t =    35.19s         Checking existence of `"Long hair" Switch`
+    t =    35.31s Tap "Long hair" Switch
+    t =    35.31s     Wait for com.netherwooddatapartners.linley to idle
+    t =    35.33s     Find the "Long hair" Switch
+    t =    35.40s     Check for interrupting elements affecting "Long hair" Switch
+    t =    35.48s     Synthesize event
+    t =    35.80s     Wait for com.netherwooddatapartners.linley to idle
+    t =    35.82s Tap "Done" Button
+    t =    35.82s     Wait for com.netherwooddatapartners.linley to idle
+    t =    35.83s     Find the "Done" Button
+    t =    35.95s     Check for interrupting elements affecting "Done" Button
+    t =    36.03s     Synthesize event
+    t =    36.34s     Wait for com.netherwooddatapartners.linley to idle
+    t =    37.13s Tap "Next adventure" Button
+    t =    37.13s     Wait for com.netherwooddatapartners.linley to idle
+    t =    37.15s     Find the "Next adventure" Button
+    t =    37.24s     Check for interrupting elements affecting "Next adventure" Button
+    t =    37.30s     Synthesize event
+    t =    37.60s     Wait for com.netherwooddatapartners.linley to idle
+    t =    37.62s Waiting 5.0s for "Adventure 2" StaticText to exist
+    t =    38.62s     Checking `Expect predicate `existsNoRetry == 1` for object "Adventure 2" StaticText`
+    t =    38.63s         Checking existence of `"Adventure 2" StaticText`
+    t =    38.71s Setting device orientation to Landscape Left
+    t =    38.72s     Device orientation changed to Landscape Left
+    t =    38.80s     Interface orientation changed to Landscape Right
+    t =    38.85s     Wait for com.netherwooddatapartners.linley to idle
+    t =    39.94s Waiting 5.0s for "My Hero" Button to exist
+    t =    40.96s     Checking `Expect predicate `existsNoRetry == 1` for object "My Hero" Button`
+    t =    40.96s         Checking existence of `"My Hero" Button`
+    t =    42.07s Checking `Expect predicate `hittable == 1` for object "Move right" Button`
+    t =    42.08s     Find the "Move right" Button
+    t =    42.44s Added attachment named 'Creative Quest — landscape device layout'
+    t =    42.44s Setting device orientation to Portrait
+    t =    42.45s     Device orientation changed to Portrait
+    t =    42.51s     Interface orientation changed to Portrait
+    t =    42.55s     Wait for com.netherwooddatapartners.linley to idle
+    t =    43.70s Tear Down
+Test Case '-[LinleyUITests.CreativeQuestUITests testPlayExploreCustomizeAndStickerBoard]' passed (43.986 seconds).
+Test Suite 'CreativeQuestUITests' passed at 2026-10-17 15:02:50.722.
+	 Executed 1 test, with 0 failures (0 unexpected) in 43.986 (43.989) seconds
+Test Suite 'LinleyUITests.xctest' passed at 2026-10-17 15:02:50.726.
+	 Executed 1 test, with 0 failures (0 unexpected) in 43.986 (43.993) seconds
+Test Suite 'Selected tests' passed at 2026-10-17 15:02:50.727.
+	 Executed 1 test, with 0 failures (0 unexpected) in 43.986 (43.995) seconds
+2026-10-17 15:02:51.097 xcodebuild[54974:832414] [MT] IDETestOperationsObserverDebug: 46.696 elapsed -- Testing started completed.
+2026-10-17 15:02:51.097 xcodebuild[54974:832414] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-17 15:02:51.097 xcodebuild[54974:832414] [MT] IDETestOperationsObserverDebug: 46.696 sec, +46.696 sec -- end
+
+Test session results, code coverage, and logs:
+	/tmp/LinleyQuestHeroPortraitLandscape
+
+** TEST SUCCEEDED **
+
+Testing started

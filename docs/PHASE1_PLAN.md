@@ -19,3 +19,6 @@ Issue acceptance/dependencies are tracked in PHASE1_ISSUES.json and GitHub. Issu
 
 ## Validation
 Build simulator and generic iPhone targets. Run storage tests covering save/reload/delete, errors, path safety and backup exclusion; verify deny policy and sample search/link persistence. Launch fresh simulator, capture Home/Watch/gallery screenshots when available, and exercise import/playback and process restart. Physical iPhone required for camera, microphone, switching lenses, crop, LocalAuthentication and signing validation. Never equate compilation with camera/device verification. Record limitations and exact results in VERIFICATION.md.
+
+## Authorized extension — Creative Quest
+Dad chose Creative Quest on October 17 and requested Lorelei and Hailey illustrated characters from the supplied reference. Add a Games icon while retaining the centered camera L. Keep offline movement/collectibles, saved local rewards and avatar choices under broad milestone #2. Original photograph stays outside the repository and app. Native SwiftUI implementation and generated illustrated assets; no third-party game copy. See CREATIVE_QUEST.md and validation evidence. Do not infer family visual acceptance or public distribution approval from this implementation request.

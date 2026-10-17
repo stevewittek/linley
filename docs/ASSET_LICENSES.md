@@ -5,3 +5,5 @@ DemoSun, DemoBlue, DemoCoral, DemoPaper and DemoMotion are original geometric de
 Existing LinleyMark and AppIcon are retained unchanged from repository main at 43b224379802b575bf2a85fbc7a79cc2a4cc2221. No new rights or third-party provenance claim is made about pre-existing branding. Confirm brand asset rights before distribution. Interface symbols use Apple's SF Symbols through native system APIs.
 
 ffmpeg is a development-only tool for deterministic fixture generation; it is not bundled or linked into the app.
+
+Creative Quest uses original native SwiftUI vector artwork and Apple's SF Symbols; no third-party game source or game assets were copied. QuestLorelei and QuestHailey are parent-requested illustrated character assets generated with the built-in imagegen tool from the supplied reference. The original photograph is excluded. See CHARACTER_ART.md for prompts, asset paths and pending family/release review. The concept image is a labeled design proposal, not app imagery or a verified screenshot.
