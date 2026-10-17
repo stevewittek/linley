@@ -11,13 +11,15 @@ Dad explicitly requested TestFlight distribution so he can install on his phone.
 
 The first creation attempt returned a UI error immediately after Apple had successfully created the app (HTTP 201); the immediate app-list refresh was still empty. Restarting distribution found the existing record and completed upload. No duplicate app was created.
 
-## Still pending
+## Private testing enabled
 
-App Store Connect browser session is signed out; Apple's authentication iframe remains on a loading spinner. Dad has been asked to sign in. Live handoff: [Linley TestFlight](https://appstoreconnect.apple.com/apps/6824064577/testflight).
+Dad signed in to App Store Connect. Build **0.4.4 (9)** finished processing, initially showing **Missing Compliance**. Source inspection confirmed no proprietary or standard encryption implementation outside Apple's OS APIs or third-party crypto dependencies. Selected **None of the algorithms mentioned above** in Apple's encryption dialog; build changed to **Ready to Test**.
 
-After sign-in: verify Apple has processed this exact build, complete accurate encryption compliance if requested, create/select a private internal tester group, assign build 0.4.4 (9), and add Dad's existing App Store Connect account as a tester. Then verify the invitation/build is available in TestFlight on his phone. Upload success alone does not prove processing, tester access, invitation delivery or installation. No public link or external beta review requested/submitted. Do not grant a child App Store Connect credentials or team access.
+Created internal group **Linley Private Beta**, group ID `d3514be3-500e-4da6-9dc5-72beba08ab85`, with automatic distribution disabled. Added only build **0.4.4 (9)**, build ID `2c1a2ac9-592a-4041-8376-d17393a10d1c`. Added Dad's existing Steven Wittek Account Holder/Admin account as a tester. Apple confirmed **1 Tester · 1 Build**, with that tester **Invited** and the assigned build **Ready to Test**. No team roles or credentials were created or expanded.
 
-On the phone, use Apple's TestFlight app with the invited Apple Account and install Linley after the build becomes available. Apple's [internal testing instructions](https://developer.apple.com/help/app-store-connect/test-a-beta-version/add-internal-testers) distinguish this from external testing.
+Actual App Store Connect screenshot: `reviews/2026-10-17-testflight-ready.png`. It shows the private group, tester/build count, and exact ready build without the tester email. This is web-console evidence, not a screenshot of the app running on a phone.
+
+[Private group](https://appstoreconnect.apple.com/teams/cebebcc3-3c4c-4ec9-b8ea-421150297b27/apps/6824064577/testflight/groups/d3514be3-500e-4da6-9dc5-72beba08ab85). On the phone, install Apple's TestFlight app, open Dad's invitation and accept, then install Linley. Invitation acceptance and phone installation remain user steps and have not been verified. The beta has no public testing link; no external beta review or public release was submitted. Future uploaded builds require manual group selection.
 
 ## Candidate and validation limits
 
