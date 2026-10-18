@@ -1,6 +1,6 @@
 {
   "version": "0.5.0",
-  "build": "15",
+  "build": "16",
   "reviewBaseCommit": "a2c41065ae70c4419d435a9a533e01a2ce7d6cdf",
   "bundleId": "com.netherwooddatapartners.linley",
   "distributionTeam": "26VH66ATMP",
@@ -22,11 +22,11 @@
     "Linley/Features/Games/ChaseGameView.swift": "7013a978459a1223b5ef4ac7877509d5719bcc8dba7d2e96be63d97cc2d0aadc",
     "Linley/Features/Games/CreativeQuestView.swift": "ab7544c54cfed0c80731aedaad19a5291c1781d07cce96ab581023722675b4d0",
     "Linley/Features/Games/DressUp/AvatarReactions.swift": "c7751fab0123c1dc5bd47752c6909470094e0cb012e5c759c2705046abc825b3",
-    "Linley/Features/Games/DressUp/DressUpCanvas.swift": "3b6486c7314bdd4b0d1fa4cd6a54cf9bf1d2ac9b02ae4552b66d211178af8d3a",
+    "Linley/Features/Games/DressUp/DressUpCanvas.swift": "04a69b8b60f71ff8af01c637b046d702ed80af09607f65fc70de285fbddcb5f6",
     "Linley/Features/Games/DressUp/DressUpCatalog.swift": "c96bb311ff183f3846795114c7afe0fa36f60c600be5deae599431ef42fe18d1",
     "Linley/Features/Games/DressUp/DressUpStore.swift": "56c076b34cd4721e0038bef672c1d6f2cb2a88b09e57bc36183fd327b9cfbf4c",
     "Linley/Features/Games/DressUp/DressUpView.swift": "3f1824ee355c38b59326348ab967d7cc04eaded72b4cf3996ecc696957da7dcb",
-    "Linley/Features/Games/DressUp/SharedAvatarViews.swift": "3252a4d71acee5656141d40c212ece2569f1addab289e445545e5c726277b339",
+    "Linley/Features/Games/DressUp/SharedAvatarViews.swift": "c6622f0d77b73905731c4e024d36b724313104101d2fe68dd37f18254174cd08",
     "Linley/Features/Games/MatchEngine.swift": "f6c7efd8be1e1645e464a63c3495a9f375f6beb574a93370bfe73d84b858dafa",
     "Linley/Features/Games/MatchGameView.swift": "44cf892511581279f1d5e1ae255e730e44dd6f82d21b4def8f99547d85013480",
     "Linley/Features/Games/QuestAudio.swift": "a02ca5b356cae70a7331af912054d54639cbc225d84ade25010334a843f7409e",
@@ -83,6 +83,6 @@
     "Linley/Resources/QuestAudio/quest-step.wav": "4a9a6af4a84c3326d14c2c6f2cfec36ebce23ae263f4d4e80f62f1bbe57a2510",
     "Linley/Resources/QuestAudio/quest-win.wav": "c97dff354e0be58edae5915ea958e8912fcb25f0c26cd6dccad2bfc27f7545d3",
     "Linley/Theme/LinleyTheme.swift": "fce763a97b4afb6e5d46af76b66d12a3e840674834bfd46586c431262502b5cc",
-    "Linley.xcodeproj/project.pbxproj": "25c4ba036e3744907187eb6e8fa5bde3b56e424e6f9552174fa2e3bf544767ba"
+    "Linley.xcodeproj/project.pbxproj": "07e11a5124af26294365d07be8d58f10ef32388285fe180c68bc88612049143c"
   }
 }

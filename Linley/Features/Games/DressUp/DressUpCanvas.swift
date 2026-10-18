@@ -37,6 +37,7 @@ import SwiftUI
 struct DressUpCanvas: View {
     let look: DressUpLook
     let title: String
+    var showsLabels = true
     var poseRotation: Double = 0
     var poseLift: CGFloat = 0
     static let scenes = ["Spotlight", "Daydream", "Storybook", "Studio"]
@@ -85,7 +86,7 @@ struct DressUpCanvas: View {
                         .modifier(layer("bag",w:w,h:h))
                 }
                 }.rotationEffect(.degrees(poseRotation),anchor:.bottom).offset(y:poseLift)
-                VStack {
+                if showsLabels {VStack {
                     HStack {
                         Text("LINLEY / STYLE STUDIO").font(.system(size:max(7,w*0.021),weight:.bold,design:.rounded)).tracking(w*0.006)
                         Spacer()
@@ -93,7 +94,7 @@ struct DressUpCanvas: View {
                     }.foregroundStyle(LinleyTheme.plum.opacity(0.7))
                     Spacer()
                     Text(title.isEmpty ? outfit.title : title).font(.system(size:max(12,w*0.04),weight:.bold,design:.rounded)).foregroundStyle(LinleyTheme.plum)
-                }.padding(w*0.05)
+                }.padding(w*0.05)}
             }.clipped()
         }.aspectRatio(2/3,contentMode:.fit)
             .accessibilityElement(children:.ignore).accessibilityLabel("Style preview: \(outfit.title), \(look.hair), \(Self.scenes[look.backdrop]) scene, skin tone \(look.skin+1), face style \(look.faceStyle+1), bag \(look.bag), lip color \(look.lipColor), eye shadow \(look.eyeShadow), blush \(look.blush)\(look.face != nil ? ", private photo avatar" : ", illustrated avatar")")

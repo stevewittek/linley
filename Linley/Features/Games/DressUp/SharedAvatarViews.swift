@@ -6,7 +6,7 @@ struct AvatarPortrait: View {
     let look: DressUpLook
     var body: some View {
         GeometryReader { geo in
-            DressUpCanvas(look:look,title:"")
+            DressUpCanvas(look:look,title:"",showsLabels:false)
                 .frame(width:geo.size.width,height:geo.size.width*1.5)
                 .scaleEffect(2.7,anchor:UnitPoint(x:0.5,y:0.22))
                 .frame(width:geo.size.width,height:geo.size.height,alignment:.top)
