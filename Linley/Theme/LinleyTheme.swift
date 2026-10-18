@@ -26,5 +26,5 @@ enum LinleyTheme {
 enum LinleyCopy {
     static let appName = "Linley"
     static let tagline = "Little moments. Big imagination."
-    static let version = "Prototype 0.4.4"
+    static let version = "Prototype 0.5.0"
 }

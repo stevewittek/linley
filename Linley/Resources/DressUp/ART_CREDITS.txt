@@ -1,0 +1,8 @@
+Original Linley Style Studio artwork, generated October 17, 2026 using the built-in OpenAI image tool.
+Four original coordinated outfit silhouettes; original color remixes are rendered in the app.
+Four transparent hair layers and a four-tone fictional illustrated avatar-head atlas.
+Generated from text and our own generated outfit reference. No child photos, celebrity photos,
+third-party fashion images or private profile/hero photos were provided to image generation.
+Player-supplied photos are handled locally only and are never part of these bundled resources.
+
+0.4.8: Original procedural SwiftUI companion bags, glasses, animal ears and cosmetic overlays authored within Linley. No external branded character assets.

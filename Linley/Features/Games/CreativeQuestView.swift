@@ -1,12 +1,38 @@
 import SwiftUI
+import AVFoundation
 
 struct GamesView: View {
     @EnvironmentObject private var game: QuestStore
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
-                Text("A little side quest").font(.largeTitle.bold())
-                Text("A cozy place to play, collect, and make it yours.").foregroundStyle(.secondary)
+                Text("Choose your game").font(.largeTitle.bold())
+                AvatarLibraryCard()
+                Text("Play your favorites. Earn Linley Coins. Unlock art supplies in the Creative Shop.").foregroundStyle(.secondary)
+                NavigationLink { DressUpView() } label: {
+                    VStack(alignment:.leading,spacing:12) {
+                        Label("Style Studio",systemImage:"tshirt.fill").font(.title.bold())
+                        Text("Dress up • Try hair • Private photo avatar • Your Lookbook")
+                        Text("Style missions earn coins. Unlock your next favorite look.").font(.headline)
+                    }.foregroundStyle(.white).padding(24).frame(maxWidth:.infinity,alignment:.leading)
+                        .background(LinearGradient(colors:[LinleyTheme.plum,LinleyTheme.coralDeep],startPoint:.topLeading,endPoint:.bottomTrailing),in:RoundedRectangle(cornerRadius:28))
+                }.accessibilityIdentifier("playDressUp")
+                NavigationLink { MatchGameView() } label: {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Label("Gem Garden · Match-3", systemImage: "diamond.fill").font(.title.bold())
+                        Text("20 levels • Clear frost • Collect gems • Earn rockets")
+                        Text("Win boards. Earn coins for your creations.").font(.headline)
+                    }.foregroundStyle(.white).padding(24).frame(maxWidth: .infinity, alignment: .leading)
+                        .background(LinearGradient(colors: [Color(red: 0.13, green: 0.49, blue: 0.47), LinleyTheme.plum], startPoint: .topLeading, endPoint: .bottomTrailing), in: RoundedRectangle(cornerRadius: 28))
+                }.accessibilityIdentifier("playMatch3")
+                NavigationLink { ChaseHubView() } label: {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Label("Puzzle Chase", systemImage: "puzzlepiece.extension.fill").font(.title.bold())
+                        Text("20 levels • Frost pulses • Keys • Crates • Relay gates")
+                        Text("Play the challenge").font(.headline)
+                    }.foregroundStyle(.white).padding(24).frame(maxWidth: .infinity, alignment: .leading)
+                        .background(LinleyTheme.plum, in: RoundedRectangle(cornerRadius: 28))
+                }.accessibilityIdentifier("playPuzzleChase")
                 NavigationLink { CreativeQuestView() } label: {
                     VStack(alignment: .leading, spacing: 18) {
                         HStack {
@@ -24,6 +50,7 @@ struct GamesView: View {
                     .background(LinleyTheme.heroGradient, in: RoundedRectangle(cornerRadius: 28))
                 }.buttonStyle(.plain).accessibilityIdentifier("playCreativeQuest")
                 CoinBalanceView()
+                if let notice = game.recoveryNotice { Text(notice).font(.footnote).foregroundStyle(.secondary) }
                 NavigationLink("Visit the Creative Shop") { CreativeShopView() }
                 Label("Free to play • No ads or real money", systemImage: "heart.fill").font(.subheadline)
             }.padding(24).frame(maxWidth: 760).frame(maxWidth: .infinity)
@@ -35,11 +62,14 @@ struct CreativeQuestView: View {
     @EnvironmentObject private var game: QuestStore
     @Environment(\.scenePhase) private var phase
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @StateObject private var audio = QuestAudio()
+    @State private var showAudio = false
+    @State private var hint: Set<QuestCell> = []
     @State private var walking: Task<Void, Never>?
     @State private var showHero = false
     @State private var showStickers = false
     @State private var restart = false
-    @State private var lastSupply = "Tap a garden tile or use the arrows."
+    @State private var lastSupply = "Find five supplies. Collect three stars first for an optional badge."
     private let gardens = ["Coral Garden", "Blue Daydream", "Sunshine Studio", "Mint Meadow"]
     private var garden: String { gardens[game.progress.round % gardens.count] }
     private var accent: Color { QuestHeroView.outfits[game.progress.round % 4] }
@@ -58,12 +88,29 @@ struct CreativeQuestView: View {
                     Label("\(game.progress.collected.count)/5", systemImage: "paintbrush.pointed.fill")
                         .font(.title3.bold()).accessibilityLabel("\(game.progress.collected.count) of 5 supplies collected").accessibilityIdentifier("questSupplyCount")
                 }.padding(.horizontal, 20)
-                CoinBalanceView()
+                HStack {
+                    CoinBalanceView()
+                    Button { stopWalking(); showAudio = true } label: { Image(systemName: "speaker.wave.2.fill").padding(12) }
+                        .accessibilityLabel("Game Sound").accessibilityIdentifier("questAudioSettings")
+                }
+                HStack {
+                    Label("Stars \(game.progress.gardenStars.count)/3", systemImage: "star.fill")
+                    Spacer()
+                    Label("Badges \(game.progress.explorerBadges.count)/4", systemImage: "rosette")
+                    Button("Hint") { showHint() }.disabled(game.progress.complete)
+                }.font(.caption.bold()).padding(.horizontal, 20)
                 Text(game.progress.complete ? "You made it! +100 Linley Coins and a sticker for your board." : lastSupply)
                     .font(.subheadline).multilineTextAlignment(.center).frame(minHeight: 36)
                     .accessibilityAddTraits(.updatesFrequently)
                     .padding(.horizontal, 16)
                 board
+                    .overlay(alignment: .top) {
+                        if game.progress.complete {
+                            VStack { AvatarVictoryView(); Label("Adventure complete!", systemImage: "sparkles") }
+                                .font(.headline).padding(14).background(.regularMaterial, in: Capsule())
+                                .allowsHitTesting(false).transition(.scale.combined(with: .opacity))
+                        }
+                    }
                 HStack(spacing: 20) {
                     VStack(spacing: 12) {
                         Button { stopWalking(); showHero = true } label: { Label("My Hero", systemImage: "person.crop.circle.fill") }
@@ -81,7 +128,7 @@ struct CreativeQuestView: View {
                 }.padding(.horizontal, 20)
                 if game.progress.complete {
                     NavigationLink("Use coins in the Creative Shop") { CreativeShopView() }
-                    Button("Next adventure") { game.nextAdventure(); lastSupply = "A new color, another creative adventure." }
+                    Button("Next adventure") { hint = []; game.nextAdventure(); lastSupply = "A new color, another creative adventure." }
                         .buttonStyle(LinleyPrimaryButtonStyle())
                 } else {
                     Button("Restart this adventure") { stopWalking(); restart = true }.font(.caption)
@@ -91,16 +138,27 @@ struct CreativeQuestView: View {
         .padding(.vertical, 8).frame(maxWidth: 800).frame(maxWidth: .infinity)
         .background(LinleyTheme.pageGradient)
         .navigationTitle("Creative Quest").navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showAudio) { QuestAudioSettings(audio: audio) }
         .sheet(isPresented: $showHero) { QuestHeroEditor(game: game) }
         .sheet(isPresented: $showStickers) { QuestStickerBoard(game: game) }
         .confirmationDialog(game.loadError ? "Reset this game's progress, coins and art packs?" : "Restart this adventure? Your coins, art packs and stickers stay.", isPresented: $restart, titleVisibility: .visible) {
             Button(game.loadError ? "Reset game" : "Restart", role: .destructive) {
+                hint = []
                 if game.loadError { game.resetUnreadableGame() } else { game.restartAdventure() }
-                lastSupply = "Tap a garden tile or use the arrows."
+                lastSupply = "Find five supplies. Collect three stars first for an optional badge."
             }
         }
-        .onDisappear { stopWalking() }
-        .onChange(of: phase) { _, next in if next != .active { stopWalking() } }
+        .onAppear { audio.setVisible(phase == .active && !game.loadError) }
+        .onDisappear { stopWalking(); audio.setVisible(false) }
+        .onChange(of: phase) { _, next in
+            if next != .active { stopWalking() }
+            audio.setVisible(next == .active && !game.loadError)
+        }
+        .onChange(of: game.loadError) { _, failed in audio.setVisible(!failed && phase == .active) }
+        .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { audio.interrupt($0) }
+        .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { audio.routeChanged($0) }
+        .sensoryFeedback(.success, trigger: game.progress.complete)
+        .sensoryFeedback(.selection, trigger: game.progress.gardenStars.count)
     }
 
     private var board: some View {
@@ -109,8 +167,10 @@ struct CreativeQuestView: View {
             ZStack(alignment: .topLeading) {
                 ForEach(0..<63, id: \.self) { index in
                     let cell = QuestCell(x: index % 7, y: index / 7)
-                    let obstacle = QuestMap.obstacles.contains(cell)
-                    let supply = QuestMap.supplies.first { $0.cell == cell && !game.progress.collected.contains($0.id) }
+                    let obstacle = QuestMap.obstacles(for: game.progress.variant).contains(cell)
+                    let supply = QuestMap.supplies(for: game.progress.variant).first { $0.cell == cell && !game.progress.collected.contains($0.id) }
+                    let star = QuestMap.stars(for: game.progress.variant).firstIndex(of: cell)
+                    let hiddenStar = star.map { !game.progress.gardenStars.contains($0) } ?? false
                     Button { walk(to: cell) } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: tile * 0.15)
@@ -122,19 +182,26 @@ struct CreativeQuestView: View {
                             } else if let supply {
                                 Image(systemName: supply.symbol).font(.system(size: tile * 0.43, weight: .bold))
                                     .foregroundStyle(accent)
+                            } else if hiddenStar {
+                                Image(systemName: "star.circle.fill").font(.system(size: tile * 0.5)).foregroundStyle(LinleyTheme.gold)
                             } else if (cell.x * 3 + cell.y) % 9 == 0 {
                                 Image(systemName: "sparkle").font(.caption).foregroundStyle(LinleyTheme.orange.opacity(0.5))
+                            }
+                            if hint.contains(cell) {
+                                RoundedRectangle(cornerRadius: tile * 0.15).stroke(LinleyTheme.gold, lineWidth: 3)
                             }
                         }.frame(width: tile - 3, height: tile - 3)
                     }
                     .buttonStyle(.plain).disabled(obstacle || game.progress.complete)
                     .accessibilityIdentifier("questCell-\(cell.x)-\(cell.y)")
-                    .accessibilityLabel(supply.map { "\($0.name), row \(cell.y + 1), column \(cell.x + 1)" } ?? "\(obstacle ? "Plant" : "Garden path"), row \(cell.y + 1), column \(cell.x + 1)")
+                    .accessibilityLabel(supply.map { "\($0.name), row \(cell.y + 1), column \(cell.x + 1)" } ?? "\(obstacle ? "Plant" : hiddenStar ? "Garden star" : "Garden path"), row \(cell.y + 1), column \(cell.x + 1)")
                     .offset(x: CGFloat(cell.x) * tile, y: CGFloat(cell.y) * tile)
                 }
-                QuestHeroView(hero: game.progress.hero)
+                GameAvatarHero()
                     .frame(width: tile * 0.86, height: tile * 1.13)
                     .offset(x: CGFloat(game.progress.position.x) * tile + tile * 0.04, y: CGFloat(game.progress.position.y) * tile - tile * 0.22)
+                    .scaleEffect(game.progress.complete && !reduceMotion ? 1.12 : 1)
+                    .animation(reduceMotion ? nil : .spring(duration: 0.4), value: game.progress.complete)
                     .allowsHitTesting(false)
                     .accessibilityLabel("Your hero, row \(game.progress.position.y + 1), column \(game.progress.position.x + 1)")
             }
@@ -151,14 +218,22 @@ struct CreativeQuestView: View {
     }
     private func step(_ cell: QuestCell) {
         let before = game.progress.collected
+        let starsBefore = game.progress.gardenStars
+        let positionBefore = game.progress.position
+        hint = []
         withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.14)) { game.move(to: cell) }
-        if game.progress.collected != before, let item = QuestMap.supplies.first(where: { $0.cell == cell }) {
+        if game.progress.collected != before, let item = QuestMap.supplies(for: game.progress.variant).first(where: { $0.cell == cell }) {
             lastSupply = "Found \(item.name.lowercased())! Keep exploring."
-        }
+            audio.play(game.progress.complete ? "quest-win.wav" : "quest-collect.wav")
+        } else if game.progress.gardenStars != starsBefore {
+            lastSupply = game.progress.gardenStars.count == 3 ? "Explorer badge earned! Finish finding your art supplies." : "A garden star! Find three before your last supply for an explorer badge."
+            audio.play("quest-star.wav")
+        } else if game.progress.position != positionBefore { audio.play("quest-step.wav") }
+
     }
     private func walk(to target: QuestCell) {
         stopWalking()
-        let path = QuestMap.route(from: game.progress.position, to: target)
+        let path = QuestMap.route(from: game.progress.position, to: target, variant: game.progress.variant)
         walking = Task { @MainActor in
             for cell in path {
                 guard !Task.isCancelled, !game.progress.complete else { return }
@@ -166,6 +241,12 @@ struct CreativeQuestView: View {
                 do { try await Task.sleep(for: .milliseconds(reduceMotion ? 30 : 165)) } catch { return }
             }
         }
+    }
+    private func showHint() {
+        stopWalking()
+        guard let next = QuestMap.supplies(for: game.progress.variant).first(where: { !game.progress.collected.contains($0.id) }) else { return }
+        hint = Set(QuestMap.route(from: game.progress.position, to: next.cell, variant: game.progress.variant))
+        lastSupply = "Follow the golden path to the \(next.name.lowercased())."
     }
     private func stopWalking() { walking?.cancel(); walking = nil }
 }

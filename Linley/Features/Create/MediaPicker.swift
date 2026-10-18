@@ -21,6 +21,7 @@ enum CameraAccess {
 struct CameraCapture: UIViewControllerRepresentable {
     let video: Bool
     var crop = false
+    var prefersFront = false
     let onResult: (Result<DraftMedia?, Error>) -> Void
     func makeCoordinator() -> Coordinator { Coordinator(onResult) }
     func makeUIViewController(context: Context) -> UIImagePickerController {
@@ -28,6 +29,7 @@ struct CameraCapture: UIViewControllerRepresentable {
         picker.sourceType = .camera
         picker.mediaTypes = [video ? UTType.movie.identifier : UTType.image.identifier]
         picker.cameraCaptureMode = video ? .video : .photo
+        if prefersFront && UIImagePickerController.isCameraDeviceAvailable(.front) { picker.cameraDevice = .front }
         picker.videoMaximumDuration = 60
         picker.videoQuality = .typeMedium
         picker.allowsEditing = crop

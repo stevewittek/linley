@@ -19,7 +19,7 @@ struct CreativeShopView: View {
             VStack(alignment: .leading, spacing: 22) {
                 CoinBalanceView()
                 Text("Play. Collect. Create.").font(.largeTitle.bold())
-                Text("Finish an adventure for 100 coins. Unlock an art pack once, then use it as often as you like. Coins are earned here and have no money value.")
+                Text("Win in Match-3, Puzzle Chase or Creative Quest to earn coins. Unlock an art pack once, then use it as often as you like. Coins are earned here and have no money value.")
                 NavigationLink { CreativeStudioView() } label: {
                     Label("Open image maker", systemImage: "paintpalette.fill")
                 }.buttonStyle(.borderedProminent)

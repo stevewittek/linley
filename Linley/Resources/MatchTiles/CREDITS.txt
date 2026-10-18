@@ -1,0 +1,8 @@
+Kenney Starter Kit Match-3
+https://github.com/KenneyNL/Starter-Kit-Match-3
+Upstream revision: 4ddb3d2a50cbf247c79cafe9e7884d7d8f99c012
+Game code MIT, bundled license in LICENSE.txt.
+Tile art CC0 1.0, https://creativecommons.org/publicdomain/zero/1.0/
+Native Swift adaptation of main.gd matching, swaps, column collapse and refill.
+Linley adds campaign goals, score, deterministic generation, saved attempts and shared wallet rewards.
+Included art: tile-gem.png, tile-grass.png, tile-spikes.png. Sun/heart variants are rendered in app.
