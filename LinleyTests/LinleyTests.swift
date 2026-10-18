@@ -7,7 +7,7 @@ import AVFoundation
 final class LinleyTests: XCTestCase {
     func testBrandCopyIsReadyForPrototype() {
         XCTAssertEqual(LinleyCopy.appName, "Linley")
-        XCTAssertEqual(LinleyCopy.version, "Prototype 0.4.9")
+        XCTAssertEqual(LinleyCopy.version, "Prototype 0.5.0")
         XCTAssertFalse(LinleyCopy.tagline.isEmpty)
     }
 

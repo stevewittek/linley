@@ -81,11 +81,13 @@ struct AvatarLibraryView: View {
     @EnvironmentObject private var studio: DressUpStore
     @EnvironmentObject private var game: QuestStore
     @Environment(\.dismiss) private var dismiss
-    @State private var error: String?
+    @State private var notice: String?
     private var introduction: some View {
         VStack(alignment:.leading,spacing:20) {
+            StyleStoreRecoveryView()
             Text("Your style comes along").font(.title.bold())
-            Text("Choose a saved avatar for Creative Quest, Puzzle Chase and Gem Garden. Try three reactions on its little stage. Your photos and characters stay on this device.").font(.subheadline)
+            Text("Your saved look joins every game. Choose an avatar, then try a reaction.").font(.subheadline)
+            avatarMenu
             if let avatar=studio.selectedAvatar, let look=studio.gameLook(ownsStyle:game.ownsStyle) {
                 AvatarReactionStudio(look:look,title:avatar.title)
             }
@@ -94,9 +96,25 @@ struct AvatarLibraryView: View {
             }
         }
     }
+    private var avatarMenu: some View {
+        Menu {
+            ForEach(studio.looks) { avatar in
+                Button(avatar.title) {
+                    do {try studio.selectAvatar(avatar.id)} catch {notice="Your avatar couldn’t change."}
+                }
+            }
+            Button("Original game hero") {
+                do {try studio.selectAvatar(nil)} catch {notice="Your character couldn’t change."}
+            }
+        } label: {
+            Label(studio.selectedAvatar?.title ?? "Choose avatar",systemImage:"person.crop.circle.badge.checkmark")
+                .font(.headline).frame(maxWidth:.infinity,alignment:.leading).padding(12)
+                .background(.white,in:RoundedRectangle(cornerRadius:14))
+        }.accessibilityIdentifier("avatarQuickSelector")
+    }
     private func avatarRow(_ avatar: SavedStyle) -> some View {
         Button {
-            do {try studio.selectAvatar(avatar.id)} catch {error="Your avatar couldn't change. Your previous character is kept."}
+            do {try studio.selectAvatar(avatar.id)} catch {notice="Your avatar couldn't change. Your previous character is kept."}
         } label: {
             HStack(spacing:12) {
                 AvatarPortrait(look:safeLook(avatar.look)).frame(width:62,height:62)
@@ -114,12 +132,12 @@ struct AvatarLibraryView: View {
             ForEach(studio.looks) { avatar in avatarRow(avatar) }
             if studio.selectedAvatarID != nil {
                 Button("Use my original game hero") {
-                    do {try studio.selectAvatar(nil)} catch {error="Your character couldn't change."}
+                    do {try studio.selectAvatar(nil)} catch {notice="Your character couldn't change."}
                 }.buttonStyle(.bordered)
             }
             NavigationLink {DressUpView()} label:{Label("Create or edit in Style Studio",systemImage:"tshirt.fill")}
                 .buttonStyle(.borderedProminent)
-            Text("Paid wardrobe items still use earned game coins. If game progress is reset, the free outfit replaces any items you no longer own; your saved artwork is kept.").font(.caption).foregroundStyle(.secondary)
+            Text("Earn Linley Coins in any game to unlock more wardrobe styles. Your characters and photos stay on this device.").font(.caption).foregroundStyle(.secondary)
         }.padding(20).frame(maxWidth:620).frame(maxWidth:.infinity)
     }
     var body: some View {
@@ -127,7 +145,7 @@ struct AvatarLibraryView: View {
             .background(LinleyTheme.pageGradient).foregroundStyle(LinleyTheme.plum).preferredColorScheme(.light)
             .navigationTitle("My avatars").navigationBarTitleDisplayMode(.inline)
             .toolbar {ToolbarItem(placement:.topBarTrailing) {Button("Done") {dismiss()}}}
-            .alert("My avatars",isPresented:Binding(get:{error != nil},set:{if !$0 {error=nil}})) {Button("OK") {error=nil}} message:{Text(error ?? "")}
+            .alert("My avatars",isPresented:Binding(get:{notice != nil},set:{if !$0 {notice=nil}})) {Button("OK") {notice=nil}} message:{Text(notice ?? "")}
     }
     private func safeLook(_ source: DressUpLook) -> DressUpLook {
         var look=source
@@ -135,5 +153,29 @@ struct AvatarLibraryView: View {
         if !game.ownsStyle(look.hair) {look.hair="bob"}
         if !game.ownsStyle(look.bag) {look.bag="simple"}
         return look
+    }
+}
+
+struct StyleStoreRecoveryView: View {
+    @EnvironmentObject private var studio: DressUpStore
+    @State private var confirmingReset=false
+    @State private var failure: String?
+    var body: some View {
+        Group {
+            if studio.isLoading {ProgressView("Opening your avatars…")}
+            else if !studio.healthy {
+                VStack(alignment:.leading,spacing:10) {
+                    Text("Your saved studio couldn’t open").font(.headline)
+                    Text("The original file is kept. You can reset this unreadable studio to remove its saved avatars and face photos and start again.").font(.caption)
+                    Button("Reset unreadable studio",role:.destructive) {confirmingReset=true}
+                    if let failure {Text(failure).font(.caption)}
+                }.padding().background(.white,in:RoundedRectangle(cornerRadius:16))
+            }
+        }.confirmationDialog("Reset unreadable Style Studio?",isPresented:$confirmingReset,titleVisibility:.visible) {
+            Button("Delete saved studio and start again",role:.destructive) {
+                do {try studio.resetUnreadable()} catch {failure="The studio couldn’t reset. Your file was kept."}
+            }
+            Button("Keep the original file",role:.cancel) {}
+        } message:{Text("This permanently deletes the unreadable studio’s editable looks and face copies. Your game coins and pictures in My Stuff or Photos stay separate.")}
     }
 }

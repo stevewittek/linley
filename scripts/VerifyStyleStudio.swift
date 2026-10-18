@@ -4,7 +4,7 @@ import ImageIO
 import UniformTypeIdentifiers
 
 @main @MainActor struct VerifyStyleStudio {
-    static func main() throws {
+    static func main() async throws {
         func check(_ value:@autoclosure ()->Bool,_ message:String) {precondition(value(),message)}
         let suite="LinleyStyleSmoke.\(UUID())"
         let defaults=UserDefaults(suiteName:suite)!
@@ -124,6 +124,34 @@ import UniformTypeIdentifiers
         check(!damaged.healthy && damaged.message != nil,"Corrupt store fails closed")
         let preserved = try Data(contentsOf:file)
         check(preserved==corrupt,"Corrupt file preserved")
+        do {try damaged.removeEveryFace();fatalError("Unreadable studio mutated")} catch {}
+        let stillUnreadable=try Data(contentsOf:file)
+        check(stillUnreadable==corrupt,"Unreadable library retained until explicit reset")
+        try damaged.resetUnreadable()
+        check(damaged.healthy && damaged.looks.isEmpty && damaged.selectedAvatarID == nil,"Explicit unreadable reset clears private library")
+        let recoveredID=try damaged.save(DressUpLook(),title:"Recovered",makeActive:true)
+        check(DressUpStore(root:root).selectedAvatarID == recoveredID,"Save works after unreadable reset")
+        do {try damaged.resetUnreadable();fatalError("Healthy library reset without unreadable state")} catch {}
+        let delayed=DressUpStore(root:root,deferredLoad:true)
+        check(delayed.isLoading && !delayed.healthy && delayed.looks.isEmpty,"Deferred load doesn't synchronously read library")
+        do {try delayed.update(DressUpLook());fatalError("Loading library mutated")} catch {}
+        do {try delayed.resetUnreadable();fatalError("Loading library reset")} catch {}
+        await delayed.loadIfNeeded()
+        check(!delayed.isLoading && delayed.healthy && delayed.selectedAvatarID == recoveredID,"Deferred library publishes loaded selection")
+        let newestID=try delayed.save(DressUpLook(),title:"Latest",makeActive:true)
+        await delayed.loadIfNeeded()
+        check(delayed.selectedAvatarID == newestID,"Repeated load cannot overwrite latest edits")
+        let input=root.appendingPathComponent("crop-input.jpg");try face.write(to:input)
+        let crop=try DressUpStore.prepareCrop(input)
+        check(crop.deletingLastPathComponent().lastPathComponent=="linley-style-crops" && FileManager.default.fileExists(atPath:crop.path),"Crop lives in owned private temp directory")
+        DressUpStore.cleanupCrop(input)
+        check(FileManager.default.fileExists(atPath:input.path),"Crop cleanup ignores unrelated files")
+        DressUpStore.cleanupCrop(crop)
+        check(!FileManager.default.fileExists(atPath:crop.path),"Canceled crop cleanup removes owned file")
+        let orphan=try DressUpStore.prepareCrop(input)
+        _=DressUpStore(root:root)
+        check(!FileManager.default.fileExists(atPath:orphan.path) && FileManager.default.fileExists(atPath:input.path),"Startup purges orphan crop without sweeping other temp files")
+        print("PASS: deferred single load, loading mutation guard, explicit unreadable reset, recovery save, and scoped crop cleanup")
         var legacy=QuestProgress();legacy.coins=100;legacy.coinsEarned=100
         var object=try JSONSerialization.jsonObject(with:JSONEncoder().encode(legacy)) as! [String:Any]
         object.removeValue(forKey:"wardrobe");object.removeValue(forKey:"styleBriefs")

@@ -38,7 +38,7 @@ struct AvatarReactionStudio: View {
     var body: some View {
         VStack(spacing: 14) {
             AvatarReactionPreview(look: look, title: title, reaction: reaction, playToken: playToken)
-                .frame(maxWidth: 330)
+                .frame(maxWidth: 230)
             HStack(spacing: 8) {
                 ForEach(AvatarReaction.allCases) { option in
                     Button {
@@ -61,6 +61,7 @@ struct AvatarReactionStudio: View {
                 playToken &+= 1
             } label: {
                 Label("Play \(reaction.title)", systemImage: "play.fill")
+                    .foregroundStyle(.white)
                     .font(.subheadline.weight(.bold))
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
@@ -70,6 +71,15 @@ struct AvatarReactionStudio: View {
             Text("Short animated poses. Your avatar stays private on this device.")
                 .font(.caption).foregroundStyle(.secondary).multilineTextAlignment(.center)
         }
+        #if DEBUG
+        .task {
+            // Explicit headless review fixture; no automatic playback in shipped builds.
+            guard ProcessInfo.processInfo.arguments.contains("--quest-ui-tests"),
+                  ProcessInfo.processInfo.arguments.contains("--avatar-play-review") else {return}
+            reaction = .celebrate
+            do {try await Task.sleep(for:.seconds(2));try Task.checkCancellation();playToken=1} catch {}
+        }
+        #endif
     }
 }
 
@@ -117,11 +127,9 @@ struct AvatarReactionPreview: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 24)
                     .fill(LinearGradient(colors: [Color(red: 0.94, green: 0.89, blue: 1), Color(red: 1, green: 0.93, blue: 0.96)], startPoint: .topLeading, endPoint: .bottomTrailing))
-                DressUpCanvas(look: look.valid ? look : DressUpLook(), title: title)
+                DressUpCanvas(look: look.valid ? look : DressUpLook(), title: title, poseRotation: rotation, poseLift: lift)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     .padding(12)
-                    .rotationEffect(.degrees(rotation), anchor: .bottom)
-                    .offset(y: lift)
                 ornaments
                     .allowsHitTesting(false)
                     .accessibilityHidden(true)

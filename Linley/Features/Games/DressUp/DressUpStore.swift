@@ -17,27 +17,64 @@ struct SavedStyle: Identifiable, Codable {
     @Published private(set) var selectedAvatarID: UUID?
     var selectedAvatar: SavedStyle? { looks.first { $0.id == selectedAvatarID } }
     @Published var message: String?
-    private(set) var healthy = false
+    @Published private(set) var healthy = false
+    @Published private(set) var isLoading = false
+    private var pendingLoad = false
     private let root: URL
     private let fm = FileManager.default
-    static let maximumLooks = 24
+    nonisolated static let maximumLooks = 24
     struct Document: Codable { var draft: DressUpLook; var looks: [SavedStyle]; var selectedAvatarID: UUID? = nil }
 
-    init(root: URL? = nil) {
+    init(root: URL? = nil, deferredLoad: Bool = false) {
         self.root = root ?? Self.defaultRoot()
+        pendingLoad = deferredLoad
+        isLoading = deferredLoad
+        guard !deferredLoad else { return }
+        do { apply(try Self.readDocument(root:self.root)) }
+        catch { message = "Your style studio couldn't open. Existing photos and looks have been kept." }
+    }
+    /// The app can show its first screen before decoding a full private library.
+    /// A second caller cannot start another load or overwrite edits with an older snapshot.
+    func loadIfNeeded() async {
+        guard pendingLoad else { return }
+        pendingLoad = false
+        let directory = root
         do {
-            try fm.createDirectory(at:self.root,withIntermediateDirectories:true,attributes:[.protectionKey:FileProtectionType.complete])
-            var folder = self.root; var flags = URLResourceValues(); flags.isExcludedFromBackup = true
-            try folder.setResourceValues(flags)
-            let file = self.root.appendingPathComponent("studio.json")
-            if fm.fileExists(atPath:file.path) {
-                guard (try file.resourceValues(forKeys:[.fileSizeKey]).fileSize ?? Int.max) <= 35_000_000 else { throw CocoaError(.fileReadCorruptFile) }
-                let saved = try JSONDecoder().decode(Document.self,from:Data(contentsOf:file))
-                guard Self.valid(saved) else { throw CocoaError(.fileReadCorruptFile) }
-                draft = saved.draft; looks = saved.looks; selectedAvatarID = saved.selectedAvatarID
-            }
-            healthy = true
+            let document = try await Task.detached(priority:.utility) {
+                try Self.readDocument(root:directory)
+            }.value
+            apply(document)
         } catch { message = "Your style studio couldn't open. Existing photos and looks have been kept." }
+        isLoading = false
+    }
+    private func apply(_ document: Document) {
+        draft=document.draft; looks=document.looks; selectedAvatarID=document.selectedAvatarID
+        message=nil; healthy=true
+    }
+    nonisolated private static func prepareRoot(_ root: URL) throws {
+        try FileManager.default.createDirectory(at:root,withIntermediateDirectories:true,attributes:[.protectionKey:FileProtectionType.complete])
+        var folder=root; var flags=URLResourceValues(); flags.isExcludedFromBackup=true
+        try folder.setResourceValues(flags)
+    }
+    nonisolated private static func readDocument(root: URL) throws -> Document {
+        try prepareRoot(root)
+        // This directory belongs solely to the crop flow; never sweep the general temp directory.
+        purgeCropFiles()
+        let file=root.appendingPathComponent("studio.json")
+        guard FileManager.default.fileExists(atPath:file.path) else {return Document(draft:DressUpLook(),looks:[])}
+        guard (try file.resourceValues(forKeys:[.fileSizeKey]).fileSize ?? Int.max) <= 35_000_000 else {throw CocoaError(.fileReadCorruptFile)}
+        let saved=try JSONDecoder().decode(Document.self,from:Data(contentsOf:file))
+        guard valid(saved) else {throw CocoaError(.fileReadCorruptFile)}
+        return saved
+    }
+    /// Call only after the user explicitly confirms deleting this unreadable private library.
+    /// A failed removal leaves the unreadable file and all in-memory state untouched.
+    func resetUnreadable() throws {
+        guard !healthy && !isLoading else {throw CocoaError(.fileWriteNoPermission)}
+        try Self.prepareRoot(root)
+        let file=root.appendingPathComponent("studio.json")
+        if fm.fileExists(atPath:file.path) {try fm.removeItem(at:file)}
+        apply(Document(draft:DressUpLook(),looks:[]))
     }
     private static func defaultRoot() -> URL {
         #if DEBUG
@@ -48,13 +85,13 @@ struct SavedStyle: Identifiable, Codable {
         return FileManager.default.urls(for:.applicationSupportDirectory,in:.userDomainMask)[0].appendingPathComponent("PrivateStyleStudio",isDirectory:true)
     }
     private static var fmTemporary: URL { FileManager.default.temporaryDirectory }
-    static func valid(_ document: Document) -> Bool {
+    nonisolated static func valid(_ document: Document) -> Bool {
         document.draft.valid && safeFace(document.draft.face) && document.looks.count <= maximumLooks &&
         (document.selectedAvatarID == nil || document.looks.contains { $0.id == document.selectedAvatarID }) &&
         Set(document.looks.map(\.id)).count == document.looks.count &&
         document.looks.allSatisfy { $0.look.valid && safeFace($0.look.face) && !$0.title.isEmpty && $0.title.count <= 40 && $0.date.timeIntervalSince1970.isFinite }
     }
-    private static func safeFace(_ data: Data?) -> Bool {
+    nonisolated private static func safeFace(_ data: Data?) -> Bool {
         guard let data else {return true}
         guard let source = CGImageSourceCreateWithData(data as CFData,nil),
               let info = CGImageSourceCopyPropertiesAtIndex(source,0,nil) as? [CFString:Any],
@@ -63,7 +100,7 @@ struct SavedStyle: Identifiable, Codable {
         return (1...512).contains(width) && (1...512).contains(height)
     }
     private func persist(draft: DressUpLook, looks: [SavedStyle], selectedAvatarID: UUID?) throws {
-        guard healthy, Self.valid(Document(draft:draft,looks:looks,selectedAvatarID:selectedAvatarID)) else { throw CocoaError(.fileWriteUnknown) }
+        guard healthy, !isLoading, Self.valid(Document(draft:draft,looks:looks,selectedAvatarID:selectedAvatarID)) else { throw CocoaError(.fileWriteUnknown) }
         let data = try JSONEncoder().encode(Document(draft:draft,looks:looks,selectedAvatarID:selectedAvatarID))
         try data.write(to:root.appendingPathComponent("studio.json"),options:[.atomic,.completeFileProtection])
         self.draft = draft; self.looks = looks; self.selectedAvatarID = selectedAvatarID
@@ -117,7 +154,24 @@ struct SavedStyle: Identifiable, Codable {
         guard (try sourceURL.resourceValues(forKeys:[.fileSizeKey]).fileSize ?? Int.max) <= 30_000_000,
               let source = CGImageSourceCreateWithURL(sourceURL as CFURL,nil) else { throw CocoaError(.fileReadCorruptFile) }
         let data = try normalized(source,maximum:1600)
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString+".jpg")
+        let directory=cropDirectory
+        try prepareRoot(directory)
+        let url=directory.appendingPathComponent(UUID().uuidString+".jpg")
         try data.write(to:url,options:[.atomic,.completeFileProtection]); return url
+    }
+    nonisolated private static var cropDirectory: URL {
+        FileManager.default.temporaryDirectory.appendingPathComponent("linley-style-crops",isDirectory:true)
+    }
+    nonisolated private static func ownsCrop(_ url: URL) -> Bool {
+        url.standardizedFileURL.deletingLastPathComponent() == cropDirectory.standardizedFileURL &&
+        url.pathExtension.lowercased() == "jpg" && UUID(uuidString:url.deletingPathExtension().lastPathComponent) != nil
+    }
+    nonisolated static func cleanupCrop(_ url: URL) {
+        guard ownsCrop(url) else {return}
+        try? FileManager.default.removeItem(at:url)
+    }
+    nonisolated private static func purgeCropFiles() {
+        guard let files=try? FileManager.default.contentsOfDirectory(at:cropDirectory,includingPropertiesForKeys:nil) else {return}
+        for file in files where ownsCrop(file) {cleanupCrop(file)}
     }
 }

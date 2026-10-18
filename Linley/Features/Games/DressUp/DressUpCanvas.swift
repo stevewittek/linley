@@ -37,6 +37,8 @@ import SwiftUI
 struct DressUpCanvas: View {
     let look: DressUpLook
     let title: String
+    var poseRotation: Double = 0
+    var poseLift: CGFloat = 0
     static let scenes = ["Spotlight", "Daydream", "Storybook", "Studio"]
     static let skin: [Color] = [.init(red:0.99,green:0.85,blue:0.73),.init(red:0.80,green:0.57,blue:0.40),.init(red:0.57,green:0.35,blue:0.23),.init(red:0.34,green:0.20,blue:0.15)]
     static let hair: [Color] = [.init(red:0.20,green:0.10,blue:0.07),.init(red:0.65,green:0.38,blue:0.16),.init(red:0.12,green:0.10,blue:0.14),.init(red:0.50,green:0.23,blue:0.41)]
@@ -47,6 +49,7 @@ struct DressUpCanvas: View {
             let skin = Self.skin[min(3,max(0,look.skin))]
             ZStack {
                 scene(w:w,h:h)
+                Group {
                 Ellipse().fill(.black.opacity(0.11)).frame(width:w*0.34,height:h*0.025).position(x:w*0.5,y:h*0.915)
                 Capsule().fill(skin.gradient).frame(width:w*0.065,height:h*0.065).position(x:w*0.5,y:h*0.322)
                 // Clothing assets use a common full-canvas registration. No user photo enters generation.
@@ -81,6 +84,7 @@ struct DressUpCanvas: View {
                     StyleCompanion(id:look.bag).frame(width:w*0.19,height:h*0.16).rotationEffect(.degrees(-8)).position(x:w*0.66,y:h*0.62)
                         .modifier(layer("bag",w:w,h:h))
                 }
+                }.rotationEffect(.degrees(poseRotation),anchor:.bottom).offset(y:poseLift)
                 VStack {
                     HStack {
                         Text("LINLEY / STYLE STUDIO").font(.system(size:max(7,w*0.021),weight:.bold,design:.rounded)).tracking(w*0.006)
@@ -101,8 +105,8 @@ struct DressUpCanvas: View {
     @ViewBuilder private func avatarFace(skin:Color) -> some View {
         ZStack {
             Ellipse().fill(skin.gradient)
-            if let data=look.face,let photo=UIImage(data:data) {
-                Image(uiImage:photo).resizable().scaledToFill()
+            if let data=look.face {
+                PrivateStyleFace(data:data).id(data)
             } else if look.faceStyle == 2 {
                 illustratedFace(skin:skin)
             } else if StyleArt.faces.indices.contains(look.skin) {
@@ -265,4 +269,21 @@ struct StyleLayerPlacement: ViewModifier {
             .rotationEffect(.degrees(placement.rotation),anchor:anchor)
             .offset(x:w*placement.x,y:h*placement.y)
     }
+}
+
+/// A view-scoped decoded photo avoids repeated allocation during poses and slider updates.
+/// No global photo cache outlives this avatar view.
+private struct PrivateStyleFace: View {
+    @StateObject private var photo: PrivateFaceImage
+    init(data:Data) {_photo=StateObject(wrappedValue:PrivateFaceImage(data:data))}
+    var body: some View {
+        Group {
+            if let image=photo.image {Image(uiImage:image).resizable().scaledToFill()}
+            else {Color.clear}
+        }
+    }
+}
+@MainActor private final class PrivateFaceImage: ObservableObject {
+    let image: UIImage?
+    init(data:Data) {image=UIImage(data:data)}
 }

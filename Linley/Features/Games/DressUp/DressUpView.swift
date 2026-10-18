@@ -21,6 +21,7 @@ struct DressUpView: View {
     @State private var camera = false
     @State private var pendingPhoto: DraftMedia?
     @State private var cropPhoto: DraftMedia?
+    @State private var activeCropURL: URL?
     @State private var notice: String?
     @State private var faceZoom = false
     @State private var moveMode = false
@@ -40,7 +41,7 @@ struct DressUpView: View {
                             if moveMode {movementControls}
                         }
                     }.frame(width:min(geo.size.width*0.44,440))
-                    VStack(spacing:12) { categoryBar; ScrollView { controls.padding(.bottom,30) } }
+                    VStack(spacing:12) { categoryBar; ScrollView { VStack {StyleStoreRecoveryView();controls}.padding(.bottom,30) } }
                 }.padding(20).background(LinleyTheme.pageGradient)
             } else {
                 VStack(spacing:8) {
@@ -49,6 +50,7 @@ struct DressUpView: View {
                     categoryBar.padding(.horizontal,12)
                     ScrollView {
                         VStack(alignment:.leading,spacing:16) {
+                            StyleStoreRecoveryView()
                             if moveMode { movementControls }
                             controls
                             if let message=studio.message {Text(message).font(.caption)}
@@ -62,6 +64,9 @@ struct DressUpView: View {
         editorLayout.foregroundStyle(LinleyTheme.plum).preferredColorScheme(.light)
             .navigationTitle("Style Studio").navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(LinleyTheme.cream,for:.navigationBar).toolbarBackground(.visible,for:.navigationBar)
+            .onChange(of:studio.healthy) { old, new in
+                if new && !old {look=studio.draft}
+            }
             .onChange(of:tab) { _, value in
                 faceZoom = [1,2,3].contains(value)
                 if value == 1 {selectedLayer="hair"}
@@ -105,7 +110,7 @@ struct DressUpView: View {
             }
     }
     private func persistDraft(_ value: DressUpLook) {
-        guard value != studio.draft else {return}
+        guard studio.healthy, value != studio.draft else {return}
         do {try studio.update(value)}
         catch {studio.message="That change couldn't save. Your previous look is kept."}
     }
@@ -115,6 +120,7 @@ struct DressUpView: View {
     }
     var body: some View {
         decoratedEditor
+            .overlay {if studio.isLoading {ProgressView("Opening your studio…").padding(24).background(.regularMaterial,in:RoundedRectangle(cornerRadius:20))}}
             .confirmationDialog("Unlock this style?",isPresented:Binding(get:{pendingPurchase != nil},set:{if !$0 { pendingPurchase=nil }}),titleVisibility:.visible) {
                 if let id=pendingPurchase, let item=WardrobeItem.item(id) {
                     Button("Use \(item.cost) coins for \(item.title)") {
@@ -142,7 +148,10 @@ struct DressUpView: View {
             .fullScreenCover(isPresented:$camera,onDismiss:presentCrop) {
                 CameraCapture(video:false,prefersFront:true) { result in receivePhoto(result); camera=false }.ignoresSafeArea()
             }
-            .sheet(item:$cropPhoto) { draft in
+            .sheet(item:$cropPhoto,onDismiss:{
+                if let url=activeCropURL {DressUpStore.cleanupCrop(url)}
+                activeCropURL=nil
+            }) { draft in
                 ProfileCropView(draft:draft,title:"Frame your avatar face") { data in
                     if let data {
                         do { look.face=try DressUpStore.normalizedFace(data) }
@@ -195,7 +204,7 @@ struct DressUpView: View {
                 Button("Save picture") {savePicture(toPhotos:false)}.buttonStyle(.bordered).accessibilityIdentifier("saveStylePicture")
             }.disabled(!studio.healthy || !game.ownsLook(look))
             Button("Save picture to Photos") {savePicture(toPhotos:true)}.font(.caption).disabled(!game.ownsLook(look)).accessibilityIdentifier("styleSavePhotos")
-            Text("Save & use avatar keeps an editable character and selects it for your games. Save picture adds an image to My Stuff; Photos is optional. Everything stays on this device.")
+            Text("Save & use avatar keeps a private editable character for your games. Save picture adds an image to My Stuff. Photos is optional and may sync through iCloud Photos or other services according to your device settings.")
                 .font(.caption).foregroundStyle(.secondary)
         }
     }
@@ -439,7 +448,7 @@ struct DressUpView: View {
             }
         case .failure:notice="That photo couldn't open. Your previous avatar is kept."}
     }
-    private func presentCrop() {cropPhoto=pendingPhoto;pendingPhoto=nil}
+    private func presentCrop() {activeCropURL=pendingPhoto?.url;cropPhoto=pendingPhoto;pendingPhoto=nil}
     @MainActor private func renderedPicture()->UIImage? {
         let renderer=ImageRenderer(content:DressUpCanvas(look:look,title:title).frame(width:720,height:1080));renderer.scale=1
         return renderer.uiImage

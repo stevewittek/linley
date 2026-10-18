@@ -8,7 +8,7 @@ struct LinleyApp: App {
     @StateObject private var styleStore = LinleyApp.makeStyleStore()
 
     @MainActor private static func makeStyleStore() -> DressUpStore {
-        let store=DressUpStore()
+        let store=DressUpStore(deferredLoad:!ProcessInfo.processInfo.arguments.contains("--quest-ui-tests"))
         #if DEBUG
         let args=ProcessInfo.processInfo.arguments
         if args.contains("--quest-ui-tests") && args.contains(where: {$0.hasPrefix("--avatar-")}) {
@@ -16,10 +16,10 @@ struct LinleyApp: App {
             if store.looks.isEmpty {
                 var look=DressUpLook(skin:2)
                 look.lipColor=2;look.blush=1;look.eyeShadow=1
-                try? store.save(look,title:"Starlight",makeActive:true)
+                _ = try? store.save(look,title:"Starlight",makeActive:true)
                 var second=DressUpLook(skin:3,accessory:1)
                 second.hairColor=3;second.glasses=1
-                try? store.save(second,title:"Berry sparkle")
+                _ = try? store.save(second,title:"Berry sparkle")
             }
             if store.selectedAvatarID == nil {try? store.selectAvatar(store.looks.first?.id)}
         }
@@ -76,6 +76,7 @@ struct LinleyApp: App {
                 .environmentObject(mediaStore)
                 .environmentObject(questStore)
                 .environmentObject(styleStore)
+                .task {await styleStore.loadIfNeeded()}
                 .tint(LinleyTheme.coralDeep)
                 .alert("Private library", isPresented: Binding(
                     get: { mediaStore.errorMessage != nil },
