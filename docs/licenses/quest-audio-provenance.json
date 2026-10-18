@@ -1,0 +1,32 @@
+{
+  "retrieved": "2026-10-17",
+  "license": "CC0-1.0",
+  "music": {
+    "title": "Flowerbed Fields [Loop]",
+    "author": "Zane Little Music",
+    "page": "https://opengameart.org/content/flowerbed-fields-loop",
+    "download": "https://opengameart.org/sites/default/files/flowerbed_fields.ogg",
+    "original_sha256": "99607b996cc43c1891afcbf7c2c8d8aad1009266cea358d4753e3c50b1332d36",
+    "transformation": "Ogg Vorbis to AAC 96 kbps .m4a using ffmpeg; no trimming"
+  },
+  "effects": {
+    "author": "Kenney",
+    "page": "https://kenney.nl/assets/interface-sounds",
+    "download": "https://kenney.nl/media/pages/assets/interface-sounds/fa43c1dd4d-1677589452/kenney_interface-sounds.zip",
+    "archive_sha256": "f2193d072726d6758a5f7871b2dcc54dcce0d5c35c6f0a62f92549b327c81232",
+    "mapping": {
+      "quest-step.wav": "Audio/click_003.ogg",
+      "quest-collect.wav": "Audio/confirmation_001.ogg",
+      "quest-win.wav": "Audio/confirmation_004.ogg",
+      "quest-star.wav": "Audio/select_001.ogg"
+    },
+    "transformation": "Ogg Vorbis to mono PCM 44.1 kHz WAV using ffmpeg"
+  },
+  "bundled_files": {
+    "quest-collect.wav": "93f3001d2ab24dc944f7ef02038ddcd656401c860e3b0b33b3381617a846b2fd",
+    "quest-music.m4a": "57a4772d4b736afe6cab6d743a76d2e30b025d2fe5f67a88bc78ea6f68733f7c",
+    "quest-star.wav": "cdc4427f85a4a561983f6217b60022bc2d86de758870d18ed79827c2aca31213",
+    "quest-step.wav": "4a9a6af4a84c3326d14c2c6f2cfec36ebce23ae263f4d4e80f62f1bbe57a2510",
+    "quest-win.wav": "c97dff354e0be58edae5915ea958e8912fcb25f0c26cd6dccad2bfc27f7545d3"
+  }
+}

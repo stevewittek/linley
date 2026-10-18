@@ -80,6 +80,7 @@ struct ProfileView: View {
 /// Explicit square crop with adjustable zoom and position; JPEG re-encoding drops metadata.
 struct ProfileCropView: View {
     let draft: DraftMedia
+    var title = "Crop profile photo"
     let onFinished: (Data?) -> Void
     @State private var zoom = 1.0
     @State private var x = 0.5
@@ -103,7 +104,7 @@ struct ProfileCropView: View {
                 Text("Vertical position"); Slider(value: $y).accessibilityLabel("Vertical crop position")
                 Button("Use photo") { onFinished(cropped?.jpegData(compressionQuality: 0.85)) }
                     .buttonStyle(LinleyPrimaryButtonStyle()).disabled(cropped == nil)
-            }.padding(24).navigationTitle("Crop profile photo")
+            }.padding(24).navigationTitle(title)
                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { onFinished(nil) } } }
                 .onDisappear { try? FileManager.default.removeItem(at: draft.url) }
         }
